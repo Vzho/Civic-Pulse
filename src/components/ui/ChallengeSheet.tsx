@@ -53,33 +53,33 @@ export default function ChallengeSheet({ isOpen, onClose, friendName }: Challeng
       />
       <div 
         className={cn(
-          "w-full h-[85vh] bg-[#f8f9fa] rounded-t-3xl relative flex flex-col transition-transform duration-300 shadow-[0_-8px_30px_rgba(0,0,0,0.12)]",
+          "w-full h-[85vh] bg-[#f8f9fa] dark:bg-gray-900 rounded-t-3xl relative flex flex-col transition-all duration-300 shadow-[0_-8px_30px_rgba(0,0,0,0.12)] border-t border-gray-100 dark:border-gray-800",
           isOpen ? "translate-y-0" : "translate-y-full"
         )}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-center pt-3 pb-2">
-          <div className="w-12 h-1 bg-gray-300 rounded-full" />
+          <div className="w-12 h-1 bg-gray-300 dark:bg-gray-700 rounded-full" />
         </div>
 
         {sent ? (
           <div className="flex-1 flex flex-col items-center justify-center p-8 text-center transition-all duration-300">
-            <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-4">
+            <div className="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mb-4 transition-colors">
               <Check className="w-8 h-8" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Challenge Sent!</h3>
-            <p className="text-gray-500">You challenged {friendName}. They have 7 days to complete it.</p>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 transition-colors">Challenge Sent!</h3>
+            <p className="text-gray-500 dark:text-gray-400 transition-colors">You challenged {friendName}. They have 7 days to complete it.</p>
           </div>
         ) : (
           <>
             <div className="px-6 pb-4">
-              <div className="text-sm text-gray-500 mb-1">Challenging</div>
-              <h2 className="text-xl font-serif font-bold text-gray-900 leading-tight mb-1">{friendName}</h2>
-              <p className="text-sm text-gray-600">Pick a quest to send — they'll have 7 days to complete it</p>
+              <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Challenging</div>
+              <h2 className="text-xl font-serif font-bold text-gray-900 dark:text-gray-100 leading-tight mb-1">{friendName}</h2>
+              <p className="text-sm text-gray-600 dark:text-gray-400">Pick a quest to send — they'll have 7 days to complete it</p>
             </div>
 
             <div 
-              className={cn("flex px-6 gap-2 overflow-x-auto select-none pb-3", scrollProps.className)}
+              className={cn("flex px-6 gap-2 overflow-x-auto select-none pb-3 no-scrollbar", scrollProps.className)}
               ref={scrollProps.ref}
               onMouseDown={scrollProps.onMouseDown}
               onMouseLeave={scrollProps.onMouseLeave}
@@ -93,7 +93,9 @@ export default function ChallengeSheet({ isOpen, onClose, friendName }: Challeng
                   onClick={() => setActiveCategory(t)}
                   className={cn(
                     "px-4 py-1.5 rounded-full text-[12px] font-medium border whitespace-nowrap transition-colors flex-shrink-0",
-                    activeCategory === t ? "bg-emerald-600 text-white border-emerald-600" : "bg-white text-gray-600 border-gray-300 hover:border-gray-400"
+                    activeCategory === t 
+                      ? "bg-emerald-600 dark:bg-emerald-700 text-white border-emerald-600 dark:border-emerald-700" 
+                      : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-500"
                   )}
                 >
                   {t}
@@ -101,35 +103,35 @@ export default function ChallengeSheet({ isOpen, onClose, friendName }: Challeng
               ))}
             </div>
 
-            <div className="flex-1 overflow-y-auto px-6 space-y-3 pb-24">
+            <div className="flex-1 overflow-y-auto px-6 space-y-3 pb-24 no-scrollbar">
               {filteredQuests.map(q => (
                 <div 
                   key={q.id}
                   onClick={() => setSelected(q.id)}
                   className={cn(
-                    "bg-white border rounded-2xl p-4 flex gap-4 cursor-pointer transition-all active:scale-[0.98]",
-                    selected === q.id ? "border-emerald-500 ring-1 ring-emerald-500" : "border-gray-200 hover:border-gray-300"
+                    "bg-white dark:bg-gray-800 border rounded-2xl p-4 flex gap-4 cursor-pointer transition-all active:scale-[0.98]",
+                    selected === q.id ? "border-emerald-500 ring-1 ring-emerald-500" : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600"
                   )}
                 >
-                  <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center shrink-0", 
-                    q.type === 'City council' ? "bg-blue-50 text-blue-500" :
-                    q.type === 'Community' ? "bg-orange-50 text-orange-500" : "bg-emerald-50 text-emerald-500"
+                  <div className={cn("w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors", 
+                    q.type === 'City council' ? "bg-blue-50 dark:bg-blue-900/30 text-blue-500 dark:text-blue-400" :
+                    q.type === 'Community' ? "bg-orange-50 dark:bg-orange-900/30 text-orange-500 dark:text-orange-400" : "bg-emerald-50 dark:bg-emerald-900/30 text-emerald-500 dark:text-emerald-400"
                   )}>
                     {/* Icon mock */}
                     <div className="w-4 h-4 bg-current rounded-sm" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-bold text-[15px] text-gray-900 mb-1 leading-tight">{q.title}</h4>
-                    <p className="text-[13px] text-gray-500 leading-snug mb-3">{q.desc}</p>
+                    <h4 className="font-bold text-[15px] text-gray-900 dark:text-gray-100 mb-1 leading-tight">{q.title}</h4>
+                    <p className="text-[13px] text-gray-500 dark:text-gray-400 leading-snug mb-3">{q.desc}</p>
                     <div className="flex justify-between items-center text-xs font-medium">
-                      <span className="text-emerald-600">+{q.pts} pts</span>
-                      <span className="text-gray-400">Complete in {q.days} days</span>
+                      <span className="text-emerald-600 dark:text-emerald-400">+{q.pts} pts</span>
+                      <span className="text-gray-400 dark:text-gray-500">Complete in {q.days} days</span>
                     </div>
                   </div>
                   <div className="shrink-0 flex items-center">
                     <div className={cn(
-                      "w-6 h-6 rounded-full border-2 flex items-center justify-center",
-                      selected === q.id ? "border-emerald-500 bg-emerald-500" : "border-gray-300"
+                      "w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors",
+                      selected === q.id ? "border-emerald-500 bg-emerald-500" : "border-gray-300 dark:border-gray-700"
                     )}>
                       {selected === q.id && <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />}
                     </div>
@@ -138,13 +140,13 @@ export default function ChallengeSheet({ isOpen, onClose, friendName }: Challeng
               ))}
             </div>
 
-            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[#f8f9fa] via-[#f8f9fa] to-transparent pt-12 pb-safe-offset-4 pointer-events-none">
+            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[#f8f9fa] dark:from-gray-900 via-[#f8f9fa] dark:via-gray-900 to-transparent pt-12 pb-safe-offset-4 pointer-events-none transition-all duration-300">
               <button 
                 onClick={handleSend}
                 disabled={!selected}
                 className={cn(
                   "w-full py-3.5 rounded-xl font-medium text-white transition-all pointer-events-auto",
-                  !selected ? "bg-emerald-600/50 cursor-not-allowed translate-y-2" : "bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] translate-y-0"
+                  !selected ? "bg-emerald-600/50 cursor-not-allowed translate-y-2 opacity-50" : "bg-emerald-600 dark:bg-emerald-700 hover:bg-emerald-700 dark:hover:bg-emerald-600 active:scale-[0.98] translate-y-0"
                 )}
               >
                 Send challenge

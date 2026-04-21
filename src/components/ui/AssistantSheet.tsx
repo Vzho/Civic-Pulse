@@ -72,23 +72,23 @@ export default function AssistantSheet({ isOpen, onClose, contextMessage }: Assi
       {/* Bottom Sheet Container */}
       <div 
         className={cn(
-          "w-full bg-[#f8f9fa] h-[60vh] max-h-[500px] rounded-t-3xl relative flex flex-col pb-safe-offset-4 transition-transform duration-300 shadow-[0_-8px_30px_rgba(0,0,0,0.12)]",
+          "w-full bg-[#f8f9fa] dark:bg-gray-900 h-[60vh] max-h-[500px] rounded-t-3xl relative flex flex-col pb-safe-offset-4 transition-all duration-300 shadow-[0_-8px_30px_rgba(0,0,0,0.12)] border-t border-gray-100 dark:border-gray-800",
           isOpen ? "translate-y-0" : "translate-y-full"
         )}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Handle / Drag Pill */}
         <div className="flex justify-center pt-3 pb-2 w-full">
-          <div className="w-12 h-1.5 bg-gray-300 rounded-full" />
+          <div className="w-12 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full" />
         </div>
 
         {/* Minimal Header */}
         <div className="flex items-center justify-between px-5 pb-3">
           <div>
-            <h3 className="font-bold text-gray-900 leading-tight">Event assistant</h3>
-            <p className="text-[12px] text-gray-500">Ask about any event or term</p>
+            <h3 className="font-bold text-gray-900 dark:text-gray-100 leading-tight">Event assistant</h3>
+            <p className="text-[12px] text-gray-500 dark:text-gray-400">Ask about any event or term</p>
           </div>
-          <button onClick={onClose} className="p-2 border border-gray-200 rounded-full text-gray-500 hover:bg-gray-100 bg-white">
+          <button onClick={onClose} className="p-2 border border-gray-200 dark:border-gray-700 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 bg-white dark:bg-gray-800 transition-colors">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -99,10 +99,10 @@ export default function AssistantSheet({ isOpen, onClose, contextMessage }: Assi
             <div key={i} className={cn("flex", msg.role === 'user' ? "justify-end" : "justify-start")}>
               <div 
                 className={cn(
-                  "p-3 rounded-2xl max-w-[85%] text-[14px] leading-relaxed shadow-sm",
+                  "p-3 rounded-2xl max-w-[85%] text-[14px] leading-relaxed shadow-sm transition-colors",
                   msg.role === 'user' 
                     ? "bg-emerald-600 text-white rounded-br-sm" 
-                    : "bg-[#F4F1EB] text-gray-900 border border-gray-200/50 rounded-bl-sm"
+                    : "bg-[#F4F1EB] dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-200/50 dark:border-gray-700 rounded-bl-sm"
                 )}
               >
                 {msg.text}
@@ -115,13 +115,13 @@ export default function AssistantSheet({ isOpen, onClose, contextMessage }: Assi
             <div className="flex justify-end pt-1 flex-col items-end gap-2.5">
               <button 
                 onClick={() => handleSuggested("Who runs this coalition and what do they do?")}
-                className="bg-white border border-emerald-100 text-emerald-700/90 rounded-2xl p-2.5 text-[13.5px] font-medium text-left leading-snug hover:bg-emerald-50 transition shadow-sm max-w-[85%]"
+                className="bg-white dark:bg-gray-800 border border-emerald-100 dark:border-emerald-900/50 text-emerald-700/90 dark:text-emerald-400 rounded-2xl p-2.5 text-[13.5px] font-medium text-left leading-snug hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors shadow-sm max-w-[85%]"
               >
                 Who runs this coalition and what do they do?
               </button>
               <button 
                 onClick={() => handleSuggested("What does 'public comment' mean here?")}
-                className="bg-white border border-emerald-100 text-emerald-700/90 rounded-2xl p-2.5 text-[13.5px] font-medium text-left leading-snug hover:bg-emerald-50 transition shadow-sm max-w-[85%]"
+                className="bg-white dark:bg-gray-800 border border-emerald-100 dark:border-emerald-900/50 text-emerald-700/90 dark:text-emerald-400 rounded-2xl p-2.5 text-[13.5px] font-medium text-left leading-snug hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors shadow-sm max-w-[85%]"
               >
                 What does 'public comment' mean here?
               </button>
@@ -130,18 +130,18 @@ export default function AssistantSheet({ isOpen, onClose, contextMessage }: Assi
         </div>
 
         {/* Input Area */}
-        <div className="px-4 pb-2 pt-3 bg-white border-t border-gray-100 flex gap-2">
+        <div className="px-4 pb-2 pt-3 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 flex gap-2 transition-colors">
           <input 
             type="text" 
             placeholder="Ask a question..." 
-            className="flex-1 bg-gray-50 border border-gray-200 rounded-full px-4 py-2.5 outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-[14px]"
+            className="flex-1 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full px-4 py-2.5 outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-[14px] text-gray-900 dark:text-gray-100 transition-all"
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && handleSend()}
           />
           <button 
             onClick={handleSend}
-            className="w-11 h-11 shrink-0 bg-emerald-600 rounded-full flex items-center justify-center text-white hover:bg-emerald-700 shadow-sm"
+            className="w-11 h-11 shrink-0 bg-emerald-600 dark:bg-emerald-700 rounded-full flex items-center justify-center text-white hover:bg-emerald-700 shadow-sm transition-colors"
           >
             <Send className="w-5 h-5 -ml-0.5" />
           </button>

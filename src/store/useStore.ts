@@ -241,12 +241,14 @@ interface AppState {
   user: UserConfig;
   events: CivicEvent[];
   organizations: Organization[];
+  theme: 'light' | 'dark';
   login: (first: string, last: string, email: string) => void;
   logout: () => void;
   completeOnboarding: (topics: string[]) => void;
   toggleRsvp: (eventId: string) => void;
   addEvent: (event: CivicEvent) => void;
   updateUser: (data: Partial<UserConfig>) => void;
+  toggleTheme: () => void;
 }
 
 export const useStore = create<AppState>()(
@@ -265,6 +267,7 @@ export const useStore = create<AppState>()(
       },
       events: mockEvents,
       organizations: mockOrgs,
+      theme: 'light',
       login: (first, last, email) =>
         set((state) => ({
           user: { ...state.user, firstName: first, lastName: last, email, isLoggedIn: true },
@@ -296,6 +299,7 @@ export const useStore = create<AppState>()(
         }),
       addEvent: (event) => set((state) => ({ events: [event, ...state.events] })),
       updateUser: (data) => set((state) => ({ user: { ...state.user, ...data } })),
+      toggleTheme: () => set((state) => ({ theme: state.theme === 'light' ? 'dark' : 'light' })),
     }),
     {
       name: 'civicpulse-storage',
