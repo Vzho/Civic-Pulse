@@ -7,13 +7,16 @@ import EditProfileSheet from "../components/ui/EditProfileSheet";
 type Tab = "Overview" | "Records" | "Friends";
 
 export default function Profile() {
-  const { user } = useStore();
+  const { user, logout } = useStore();
   const [activeTab, setActiveTab] = useState<Tab>("Overview");
   
   const [challengeTarget, setChallengeTarget] = useState<string | null>(null);
   const [isEditingProfile, setIsEditingProfile] = useState(false);
 
   const initials = `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`;
+  
+  // Simple rank calculation similar to Leaderboard
+  const rank = user.points > 1200 ? 1 : 253; 
 
   const friends = [
     { id: '1', name: "Maya R.", pts: 1240, rank: 1, init: "MR" },
@@ -23,7 +26,7 @@ export default function Profile() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#fcfaf7] overflow-x-hidden pb-16">
+    <div className="flex flex-col min-h-screen bg-[#f4f2ea] overflow-x-hidden pb-16">
       
       {/* Header Profile Info */}
       <div className="bg-[#189F6B] text-white pt-10 pb-4 px-6 rounded-b-[2rem] relative">
@@ -54,7 +57,7 @@ export default function Profile() {
 
         <div className="flex gap-6 mt-2 mb-2 font-medium">
           <div>
-            <div className="text-[20px] font-bold leading-none">253</div>
+            <div className="text-[20px] font-bold leading-none">{rank}</div>
             <div className="text-emerald-100 text-[11px] mt-1">Rank</div>
           </div>
           <div>
@@ -148,6 +151,15 @@ export default function Profile() {
                   <div className="text-[11px] font-medium text-gray-600 px-1 text-center leading-tight">{b.name}</div>
                 </div>
               ))}
+            </div>
+
+            <div className="mt-12 mb-8">
+              <button 
+                onClick={logout}
+                className="w-full py-3 border border-red-100 bg-red-50 text-red-600 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-red-100 transition-colors"
+              >
+                Logout
+              </button>
             </div>
           </div>
         )}

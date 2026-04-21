@@ -48,14 +48,17 @@ export default function Leaderboard() {
 
   const topThree = displayLeaderboard.slice(0, 3);
   const theRest = displayLeaderboard.slice(3);
+  const meEntry = displayLeaderboard.find(u => u.isMe);
+  const myRank = meEntry?.rank || "253";
+  const myPoints = meEntry?.pts || user.points;
 
   return (
-    <div className="flex flex-col h-full bg-[#fcfaf7]">
-      <div className="px-5 pt-8 pb-4 text-center border-b border-gray-100 bg-white">
+    <div className="flex flex-col h-full bg-[#f4f2ea]">
+      <div className="px-5 pt-8 pb-4 text-center border-b border-gray-100 bg-[#f4f2ea]">
         <h1 className="text-xl font-serif font-bold text-gray-900">Leaderboard</h1>
       </div>
 
-      <div className="p-4 bg-white shadow-sm space-y-4">
+      <div className="p-4 bg-[#f4f2ea] space-y-4">
         {/* Time Filters */}
         <div className="flex gap-2">
           {TIME_FILTERS.map(f => (
@@ -92,7 +95,7 @@ export default function Leaderboard() {
       </div>
 
       {/* Podium */}
-      <div className="px-5 py-8 flex justify-center items-end gap-3 bg-white mt-2">
+      <div className="px-5 py-8 flex justify-center items-end gap-3 bg-[#f4f2ea] mt-2">
         {/* 2nd Place */}
         <div className="flex flex-col items-center">
           <div className={cn("w-14 h-14 rounded-full flex items-center justify-center font-bold text-lg mb-2 border overflow-hidden", topThree[1]?.isMe ? "bg-emerald-50 text-emerald-600 border-emerald-500" : "bg-blue-50 text-blue-500 border-blue-100")}>
@@ -126,7 +129,7 @@ export default function Leaderboard() {
       </div>
 
       {/* List */}
-      <div className="flex-1 bg-[#fcfaf7] px-4 pt-4 pb-24">
+      <div className="flex-1 bg-[#f4f2ea] px-4 pt-4 pb-24">
         <div className="flex justify-between text-[10px] font-bold text-gray-400 uppercase tracking-widest px-2 mb-2">
           <span>Rank</span>
           <span>Points</span>
@@ -160,12 +163,12 @@ export default function Leaderboard() {
           onClick={() => navigate('/profile')}
           className="w-full bg-emerald-600 rounded-xl p-3 flex items-center text-white shadow-lg pointer-events-auto hover:bg-emerald-700 transition-colors"
         >
-          <div className="text-lg font-bold w-10 text-center">253</div>
+          <div className="text-lg font-bold w-10 text-center">{myRank}</div>
           <div className="flex-1 ml-2 text-left">
             <div className="font-bold">🔥 You — {user.firstName} {user.lastName.charAt(0)}.</div>
             <div className="text-emerald-100 text-[11px]">+120 pts today</div>
           </div>
-          <div className="font-bold text-lg mr-3">{user.points.toLocaleString()}</div>
+          <div className="font-bold text-lg mr-3">{myPoints.toLocaleString()}</div>
           <div className="w-7 h-7 bg-white/20 rounded-full flex items-center justify-center text-xs shrink-0">▶</div>
         </button>
       </div>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { cn } from "../../lib/utils";
 import { X, Camera } from "lucide-react";
 import { useStore } from "../../store/useStore";
