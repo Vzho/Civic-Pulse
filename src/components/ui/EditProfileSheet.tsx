@@ -51,17 +51,17 @@ export default function EditProfileSheet({ isOpen, onClose }: EditProfileSheetPr
   return (
     <div 
       className={cn(
-        "fixed inset-0 z-50 flex justify-center items-end transition-opacity duration-300",
+        "absolute inset-0 z-50 flex justify-center items-end transition-opacity duration-300",
         isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
       )}
     >
       <div 
-        className="fixed inset-0 bg-black/40" 
+        className="absolute inset-0 bg-black/40" 
         onClick={onClose}
       />
       <div 
         className={cn(
-          "w-full max-w-[430px] mx-auto bg-white rounded-t-3xl relative flex flex-col transition-transform duration-300 shadow-[0_-8px_30px_rgba(0,0,0,0.12)] p-6 pb-soft-keyboard",
+          "w-full bg-white rounded-t-3xl relative flex flex-col transition-transform duration-300 shadow-[0_-8px_30px_rgba(0,0,0,0.12)] p-6 pb-soft-keyboard",
           isOpen ? "translate-y-0" : "translate-y-full"
         )}
         onClick={(e) => e.stopPropagation()}

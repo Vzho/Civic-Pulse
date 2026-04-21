@@ -43,17 +43,17 @@ export default function ChallengeSheet({ isOpen, onClose, friendName }: Challeng
   return (
     <div 
       className={cn(
-        "fixed inset-0 z-50 flex justify-center items-end transition-opacity duration-300",
+        "absolute inset-0 z-50 flex justify-center items-end transition-opacity duration-300",
         isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
       )}
     >
       <div 
-        className="fixed inset-0 bg-black/40" 
+        className="absolute inset-0 bg-black/40" 
         onClick={onClose}
       />
       <div 
         className={cn(
-          "w-full max-w-[430px] mx-auto h-[85vh] bg-[#f8f9fa] rounded-t-3xl relative flex flex-col transition-transform duration-300 shadow-[0_-8px_30px_rgba(0,0,0,0.12)]",
+          "w-full h-[85vh] bg-[#f8f9fa] rounded-t-3xl relative flex flex-col transition-transform duration-300 shadow-[0_-8px_30px_rgba(0,0,0,0.12)]",
           isOpen ? "translate-y-0" : "translate-y-full"
         )}
         onClick={(e) => e.stopPropagation()}

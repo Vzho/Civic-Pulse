@@ -62,17 +62,17 @@ export default function AssistantSheet({ isOpen, onClose, contextMessage }: Assi
   return (
     <div 
       className={cn(
-        "fixed inset-0 z-50 flex justify-center items-end transition-opacity duration-300",
+        "absolute inset-0 z-50 flex justify-center items-end transition-opacity duration-300",
         isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
       )}
     >
       {/* Dimmed Overlay */}
-      <div className="fixed inset-0 bg-black/50" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
       
       {/* Bottom Sheet Container */}
       <div 
         className={cn(
-          "w-full max-w-[430px] bg-[#f8f9fa] h-[60vh] max-h-[500px] rounded-t-3xl relative flex flex-col pb-safe-offset-4 transition-transform duration-300 shadow-[0_-8px_30px_rgba(0,0,0,0.12)]",
+          "w-full bg-[#f8f9fa] h-[60vh] max-h-[500px] rounded-t-3xl relative flex flex-col pb-safe-offset-4 transition-transform duration-300 shadow-[0_-8px_30px_rgba(0,0,0,0.12)]",
           isOpen ? "translate-y-0" : "translate-y-full"
         )}
         onClick={(e) => e.stopPropagation()}

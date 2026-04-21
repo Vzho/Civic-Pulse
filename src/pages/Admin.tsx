@@ -39,9 +39,8 @@ export default function Admin() {
   };
 
   return (
-    <div className="min-h-screen bg-[#E5E5E5] flex justify-center">
-      <div className="w-full max-w-[430px] bg-gray-50 flex flex-col relative shadow-md pb-16">
-        <div className="bg-white px-4 py-4 flex items-center border-b border-gray-200">
+    <div className="flex-1 bg-gray-50 flex flex-col relative pb-16 overflow-y-auto">
+      <div className="bg-white px-4 py-4 flex items-center border-b border-gray-200">
         <button onClick={() => navigate(-1)} className="mr-3 p-1 text-gray-500 hover:text-gray-900 rounded-full hover:bg-gray-100">
           <ArrowLeft className="w-5 h-5" />
         </button>
@@ -97,6 +96,5 @@ export default function Admin() {
         </button>
       </form>
     </div>
-  </div>
   )
 }

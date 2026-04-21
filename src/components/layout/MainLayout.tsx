@@ -15,11 +15,14 @@ export default function MainLayout() {
   }
 
   return (
-    <div className="min-h-[100dvh] bg-[#E5E5E5] text-gray-900 font-sans flex justify-center w-full">
-      <div className="w-full max-w-[430px] bg-white min-h-[100dvh] relative shadow-md overflow-x-hidden flex flex-col pb-[68px]">
+    <div className="flex-1 flex flex-col relative overflow-hidden bg-white">
+      {/* Scrollable Content */}
+      <div className="flex-1 overflow-y-auto no-scrollbar pb-[68px]">
         <Outlet />
-        <BottomNav />
       </div>
+      
+      {/* Fixed Navigation */}
+      <BottomNav />
     </div>
   );
 }

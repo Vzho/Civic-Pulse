@@ -37,16 +37,16 @@ export default function ParticipantsSheet({ isOpen, onClose, count, eventTitle }
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/40 z-50 backdrop-blur-[2px]"
+            className="absolute inset-0 bg-black/40 z-50 backdrop-blur-[2px]"
           />
           <motion.div
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none"
+            className="absolute bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none"
           >
-            <div className="w-full max-w-[430px] h-[75vh] bg-[#fcfaf7] rounded-t-[2.5rem] flex flex-col shadow-2xl border-t border-white pointer-events-auto relative overflow-hidden">
+            <div className="w-full h-[75vh] bg-[#fcfaf7] rounded-t-[2.5rem] flex flex-col shadow-2xl border-t border-white pointer-events-auto relative overflow-hidden">
               {/* Handle */}
               <div className="flex justify-center pt-3 pb-1">
                 <div className="w-12 h-1.5 bg-gray-200 rounded-full" />

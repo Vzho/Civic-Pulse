@@ -10,9 +10,8 @@ export default function BottomNav() {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-transparent flex justify-center pointer-events-none">
-      <div className="w-full max-w-[430px] bg-white border-t border-gray-200 safe-area-pb flex pointer-events-auto">
-        {navItems.map((item) => (
+    <div className="absolute bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 safe-area-pb flex">
+      {navItems.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
@@ -33,7 +32,6 @@ export default function BottomNav() {
             )}
           </NavLink>
         ))}
-      </div>
     </div>
   );
 }

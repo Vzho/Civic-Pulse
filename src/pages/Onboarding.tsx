@@ -52,9 +52,8 @@ export default function Onboarding() {
   const currentTopic = TOPICS[currentIndex];
 
   return (
-    <div className="min-h-screen bg-[#E5E5E5] flex justify-center overflow-hidden">
-      <div className="w-full max-w-[430px] bg-[#f4f2ea] flex flex-col items-center p-6 font-sans select-none relative shadow-md overflow-hidden">
-        <div className="w-full mt-4 flex flex-col items-center flex-1">
+    <div className="flex-1 bg-[#f4f2ea] flex flex-col items-center p-6 font-sans select-none relative overflow-y-auto no-scrollbar">
+      <div className="w-full mt-4 flex flex-col items-center flex-1">
         
         {/* Progress Bar */}
         <div className="w-full h-1.5 bg-gray-200 rounded-full mb-8 overflow-hidden">
@@ -167,6 +166,5 @@ export default function Onboarding() {
 
       </div>
     </div>
-  </div>
   );
 }

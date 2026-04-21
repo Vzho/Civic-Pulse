@@ -18,9 +18,8 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-[#E5E5E5] flex justify-center">
-      <div className="w-full max-w-[430px] bg-[#F9F9F9] flex flex-col items-center p-6 font-sans relative shadow-md">
-        <div className="w-full mt-8">
+    <div className="flex-1 bg-[#F9F9F9] flex flex-col items-center p-6 font-sans relative overflow-y-auto">
+      <div className="w-full mt-8">
         <h1 className="text-xl font-bold tracking-tight text-gray-900 mb-8 flex items-center gap-1">
           Civic<span className="text-emerald-500">Pulse</span>
         </h1>
@@ -99,6 +98,5 @@ export default function Login() {
         </form>
       </div>
     </div>
-  </div>
-);
+  );
 }
