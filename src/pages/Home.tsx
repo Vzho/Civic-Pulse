@@ -55,14 +55,19 @@ export default function Home() {
   const { user, events, toggleRsvp } = useStore();
   const navigate = useNavigate();
   const [activeTag, setActiveTag] = useState("All events");
+  const [activeType, setActiveType] = useState<"All" | "Event" | "Opportunity">("All");
   const [isAssistantOpen, setAssistantOpen] = useState(false);
 
   const tagsScroll = useDraggableScroll();
   const featuredScroll = useDraggableScroll();
 
-  const filteredEvents = activeTag === "All events" 
+  const filteredEventsForTag = activeTag === "All events" 
     ? events 
     : events.filter(e => e.topic.toLowerCase() === activeTag.toLowerCase() || e.topic === activeTag);
+
+  const filteredEvents = activeType === "All"
+    ? filteredEventsForTag
+    : filteredEventsForTag.filter(e => e.type === activeType);
 
   const featuredEvents = events.slice(0, 3);
 
@@ -149,6 +154,47 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Neighborhood Pulse */}
+      <div className="px-5 mt-8">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest">Neighborhood Pulse</h3>
+          <div className="flex items-center gap-1.5">
+            <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></div>
+            <span className="text-[11px] font-bold text-emerald-600 uppercase">1.2k Active</span>
+          </div>
+        </div>
+        <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+          {[
+            { name: "Maya", status: "Friend", img: "MR", online: true },
+            { name: "Jordan", status: "Active", img: "JT", online: true },
+            { name: "Alex", status: "Active", img: "AC", online: true },
+            { name: "Sarah", status: "New", img: "SJ", online: false },
+            { name: "Marcus", status: "Top 10", img: "MT", online: true },
+          ].map((neighbor, i) => (
+            <div key={i} className="flex flex-col items-center gap-2 shrink-0">
+              <div className="relative">
+                <div className="w-[52px] h-[52px] rounded-full bg-white border-2 border-gray-100 flex items-center justify-center font-bold text-gray-700 shadow-sm overflow-hidden text-sm">
+                  {neighbor.img}
+                </div>
+                {neighbor.online && (
+                  <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-[#fcfaf7]" />
+                )}
+              </div>
+              <div className="flex flex-col items-center">
+                <span className="text-[12px] font-bold text-gray-900 leading-none">{neighbor.name}</span>
+                <span className="text-[10px] text-gray-500 font-medium mt-1 uppercase tracking-tight">{neighbor.status}</span>
+              </div>
+            </div>
+          ))}
+          <button className="flex flex-col items-center gap-2 shrink-0">
+            <div className="w-[52px] h-[52px] rounded-full bg-emerald-50 border-2 border-dashed border-emerald-200 flex items-center justify-center text-emerald-600">
+              <span className="text-xl font-bold">+</span>
+            </div>
+            <span className="text-[10px] text-emerald-600 font-bold uppercase mt-1">Invite</span>
+          </button>
+        </div>
+      </div>
+
       {/* Featured Section */}
       <div className="mt-8">
         <h3 className="px-5 text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">Featured this week</h3>
@@ -198,32 +244,54 @@ export default function Home() {
 
       {/* Upcoming Feed */}
       <div className="px-5 mt-6 mb-8">
-        <h3 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">Upcoming in your feed</h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-sm font-bold text-gray-500 uppercase tracking-widest">Upcoming Feed</h3>
+          <div className="flex bg-gray-200/50 p-1 rounded-lg">
+            {(["All", "Event", "Opportunity"] as const).map((type) => (
+              <button
+                key={type}
+                onClick={() => setActiveType(type)}
+                className={cn(
+                  "px-3 py-1 text-[11px] font-bold rounded-md transition-all",
+                  activeType === type ? "bg-white text-emerald-700 shadow-sm" : "text-gray-500 hover:text-gray-700"
+                )}
+              >
+                {type === "All" ? "ALL" : type === "Event" ? "EVENTS" : "ROLES"}
+              </button>
+            ))}
+          </div>
+        </div>
         <div className="space-y-3">
-          {filteredEvents.map((evt) => (
-            <div 
-              key={evt.id} 
-              onClick={() => navigate(`/event/${evt.id}`)}
-              className="bg-white rounded-xl flex border border-gray-200 cursor-pointer hover:border-gray-300 transition active:scale-[0.98]"
-              style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.02)' }}
-            >
-              <SidebarIndicator topic={evt.topic} />
-              <div className="p-4 flex-1 flex justify-between items-start">
-                <div className="flex-1 pr-4">
-                  <h4 className="font-medium text-[15px] text-gray-900 leading-snug mb-1">{evt.title}</h4>
-                  <div className="text-[13px] text-gray-600 mb-0.5">
-                    {evt.dateStr} &nbsp;&nbsp; {evt.location}
+          {filteredEvents.length > 0 ? (
+            filteredEvents.map((evt) => (
+              <div 
+                key={evt.id} 
+                onClick={() => navigate(`/event/${evt.id}`)}
+                className="bg-white rounded-xl flex border border-gray-200 cursor-pointer hover:border-gray-300 transition active:scale-[0.98] overflow-hidden"
+                style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.02)' }}
+              >
+                <SidebarIndicator topic={evt.topic} />
+                <div className="p-4 flex-1 flex justify-between items-start">
+                  <div className="flex-1 pr-4">
+                    <h4 className="font-medium text-[15px] text-gray-900 leading-snug mb-1">{evt.title}</h4>
+                    <div className="text-[13px] text-gray-600 mb-0.5">
+                      {evt.dateStr} &nbsp;&nbsp; {evt.location}
+                    </div>
+                    <div className="text-[12px] text-gray-500">
+                      {evt.type === 'Event' ? 'Hosted by ' : 'Volunteers for '}{evt.organization} · {evt.attendees} attending
+                    </div>
                   </div>
-                  <div className="text-[12px] text-gray-500">
-                    {evt.type === 'Event' ? 'Hosted by ' : ''}{evt.organization} · {evt.attendees} attending
-                  </div>
+                  <span className={cn("text-[11px] font-bold px-2 py-0.5 rounded-md shrink-0", getTagColor(evt.topic))}>
+                    {evt.topic}
+                  </span>
                 </div>
-                <span className={cn("text-[11px] font-bold px-2 py-0.5 rounded-md shrink-0", getTagColor(evt.topic))}>
-                  {evt.topic}
-                </span>
               </div>
+            ))
+          ) : (
+            <div className="bg-white/50 border border-dashed border-gray-300 rounded-xl p-8 text-center">
+              <p className="text-gray-500 text-sm">No items found for this filter.</p>
             </div>
-          ))}
+          )}
         </div>
       </div>
 

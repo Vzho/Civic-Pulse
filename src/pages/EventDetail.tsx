@@ -4,12 +4,14 @@ import { ArrowLeft, MapPin, Calendar, Users, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { cn } from "../lib/utils";
 import AssistantSheet from "../components/ui/AssistantSheet";
+import ParticipantsSheet from "../components/ui/ParticipantsSheet";
 
 export default function EventDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { events, user, toggleRsvp } = useStore();
   const [isAssistantOpen, setAssistantOpen] = useState(false);
+  const [isParticipantsOpen, setParticipantsOpen] = useState(false);
 
   const event = events.find(e => e.id === id);
 
@@ -19,23 +21,31 @@ export default function EventDetail() {
 
   const isRsvpd = user.rsvps.includes(event.id);
 
+  const handleOrgClick = () => {
+    if (event.orgId) {
+      navigate(`/org/${event.orgId}`);
+    } else {
+      console.warn("No orgId found for this event:", event);
+    }
+  };
+
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen bg-[#f4f2ea]">
       {/* Header */}
-      <div className="sticky top-0 bg-white/80 backdrop-blur-md z-10 px-4 py-4 flex items-center justify-between border-b border-gray-100">
-        <button onClick={() => navigate(-1)} className="p-2 -ml-2 text-gray-900 rounded-full hover:bg-gray-100">
+      <div className="sticky top-0 bg-[#f4f2ea]/80 backdrop-blur-md z-10 px-4 py-4 flex items-center justify-between border-b border-gray-100">
+        <button onClick={() => navigate(-1)} className="p-2 -ml-2 text-gray-900 rounded-full hover:bg-gray-100/50">
           <ArrowLeft className="w-5 h-5" />
         </button>
         <button 
           onClick={() => setAssistantOpen(true)}
-          className="p-2 border border-gray-200 rounded-full text-emerald-600 bg-emerald-50 hover:bg-emerald-100"
+          className="p-2 border border-gray-200 rounded-full text-emerald-600 bg-white hover:bg-emerald-50"
         >
           <Sparkles className="w-4 h-4" fill="currentColor"/>
         </button>
       </div>
 
       <div className="p-5">
-        <div className="inline-block px-2.5 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-md mb-4 uppercase tracking-wider">
+        <div className="inline-block px-2.5 py-1 bg-white text-emerald-700 text-xs font-bold rounded-md mb-4 uppercase tracking-wider border border-gray-100">
           {event.topic}
         </div>
         
@@ -43,15 +53,30 @@ export default function EventDetail() {
           {event.title}
         </h1>
         
-        <div className="flex items-center gap-3 text-gray-600 mb-6 border-b border-gray-100 pb-6">
-          <div className="w-10 h-10 rounded-full bg-gray-100 flex flex-col items-center justify-center font-bold text-xs leading-none">
-            {event.organization.substring(0, 2).toUpperCase()}
+        <button 
+          onClick={handleOrgClick}
+          className="w-full flex items-center gap-3 text-left text-gray-600 mb-6 border-b border-gray-200/50 pb-6 cursor-pointer group transition-all"
+        >
+          <div className="w-10 h-10 rounded-full bg-emerald-600 text-white flex flex-col items-center justify-center font-bold text-xs leading-none group-active:scale-95 transition-transform">
+            {event.organization.substring(0, 1).toUpperCase()}
           </div>
-          <div>
-            <div className="text-sm font-medium text-gray-900">Hosted by {event.organization}</div>
-            <div className="text-xs text-gray-500">{event.attendees + (isRsvpd ? 1 : 0)} people going</div>
+          <div className="flex-1">
+            <div className="text-sm font-medium text-gray-900 group-hover:text-emerald-700 underline decoration-emerald-200 transition-all font-serif italic decoration-2 underline-offset-4">
+              Hosted by {event.organization}
+            </div>
+            <div 
+              onClick={(e) => { e.stopPropagation(); setParticipantsOpen(true); }}
+              className="text-xs text-gray-500 hover:text-emerald-700 transition-colors"
+            >
+              <span className="font-bold text-gray-700 underline decoration-gray-200 underline-offset-2 decoration-2 group-hover:decoration-emerald-200">
+                {event.attendees + (isRsvpd ? 1 : 0)} people
+              </span> going
+            </div>
           </div>
-        </div>
+          <div className="text-emerald-600 text-[10px] font-bold bg-white px-2 py-1.5 rounded-lg border border-emerald-100 shadow-sm group-active:scale-95 transition-transform uppercase tracking-wider">
+            View Org
+          </div>
+        </button>
 
         <div className="space-y-4 mb-8">
           <div className="flex gap-3">
@@ -80,11 +105,11 @@ export default function EventDetail() {
       </div>
 
       {/* Sticky Bottom Action */}
-      <div className="mt-auto px-5 py-4 border-t border-gray-100 bg-white sticky bottom-0 z-10 pb-safe-offset-4">
+      <div className="mt-auto px-5 py-4 border-t border-gray-100 bg-white/80 backdrop-blur-md sticky bottom-0 z-10 pb-safe-offset-4">
         <button 
           onClick={() => toggleRsvp(event.id)}
           className={cn(
-            "w-full py-3.5 rounded-xl font-bold text-[15px] flex items-center justify-center gap-2 transition",
+            "w-full py-4 rounded-xl font-bold text-[15px] flex items-center justify-center gap-2 transition shadow-lg",
             isRsvpd 
               ? "bg-emerald-50 text-emerald-700 border border-emerald-200" 
               : "bg-emerald-600 text-white hover:bg-emerald-700"
@@ -98,6 +123,13 @@ export default function EventDetail() {
         isOpen={isAssistantOpen} 
         onClose={() => setAssistantOpen(false)} 
         contextMessage={`Tell me more about: ${event.title}`}
+      />
+
+      <ParticipantsSheet
+        isOpen={isParticipantsOpen}
+        onClose={() => setParticipantsOpen(false)}
+        count={event.attendees + (isRsvpd ? 1 : 0)}
+        eventTitle={event.title}
       />
     </div>
   );

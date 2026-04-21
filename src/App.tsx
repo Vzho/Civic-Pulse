@@ -12,6 +12,7 @@ import EventDetail from "./pages/EventDetail";
 import Leaderboard from "./pages/Leaderboard";
 import Profile from "./pages/Profile";
 import Admin from "./pages/Admin";
+import OrganizationProfile from "./pages/OrganizationProfile";
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/event/:id" element={<EventDetail />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/org/:id" element={<OrganizationProfile />} />
         </Route>
         
         <Route path="*" element={<Navigate to="/" replace />} />

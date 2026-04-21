@@ -12,12 +12,14 @@ export default function EditProfileSheet({ isOpen, onClose }: EditProfileSheetPr
   const { user, updateUser } = useStore();
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
+  const [status, setStatus] = useState(user.status || "");
   const [avatar, setAvatar] = useState(user.avatar || "");
 
   useEffect(() => {
     if (isOpen) {
       setFirstName(user.firstName);
       setLastName(user.lastName);
+      setStatus(user.status || "");
       setAvatar(user.avatar || "");
     }
   }, [isOpen, user]);
@@ -38,6 +40,7 @@ export default function EditProfileSheet({ isOpen, onClose }: EditProfileSheetPr
     updateUser({ 
       firstName: firstName.trim(), 
       lastName: lastName.trim(),
+      status: status.trim() || 'Active now',
       avatar
     });
     onClose();
@@ -108,6 +111,17 @@ export default function EditProfileSheet({ isOpen, onClose }: EditProfileSheetPr
               onChange={(e) => setLastName(e.target.value)}
               className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all font-medium text-gray-900"
               placeholder="Your last name"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-bold text-gray-700 mb-1.5">Current Status</label>
+            <input 
+              type="text" 
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all font-medium text-gray-900"
+              placeholder="e.g. Active now, Cleaning up, Out at City Hall..."
+              maxLength={40}
             />
           </div>
         </div>

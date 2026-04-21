@@ -5,19 +5,21 @@ import { ArrowLeft } from "lucide-react";
 
 export default function Admin() {
   const navigate = useNavigate();
-  const addEvent = useStore((state) => state.addEvent);
+  const { organizations, addEvent } = useStore();
 
   const [title, setTitle] = useState("");
   const [dateStr, setDateStr] = useState("");
   const [location, setLocation] = useState("");
   const [topic, setTopic] = useState("Local org");
   const [type, setType] = useState<EventType>("Event");
-  const [organization, setOrganization] = useState("");
+  const [orgId, setOrgId] = useState(organizations[0]?.id || "");
   const [description, setDescription] = useState("");
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!title || !dateStr || !location) return;
+
+    const selectedOrg = organizations.find(o => o.id === orgId);
 
     const newEvent: CivicEvent = {
       id: Math.random().toString(36).substr(2, 9),
@@ -26,7 +28,8 @@ export default function Admin() {
       location,
       topic,
       type,
-      organization,
+      organization: selectedOrg?.name || "Unknown Org",
+      orgId,
       description,
       attendees: 0,
     };
@@ -36,8 +39,9 @@ export default function Admin() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 pb-16">
-      <div className="bg-white px-4 py-4 flex items-center border-b border-gray-200">
+    <div className="min-h-screen bg-[#E5E5E5] flex justify-center">
+      <div className="w-full max-w-[430px] bg-gray-50 flex flex-col relative shadow-md pb-16">
+        <div className="bg-white px-4 py-4 flex items-center border-b border-gray-200">
         <button onClick={() => navigate(-1)} className="mr-3 p-1 text-gray-500 hover:text-gray-900 rounded-full hover:bg-gray-100">
           <ArrowLeft className="w-5 h-5" />
         </button>
@@ -71,8 +75,17 @@ export default function Admin() {
           </div>
         </div>
         <div className="space-y-1">
-          <label className="text-sm font-semibold text-gray-700">Organization</label>
-          <input required value={organization} onChange={e => setOrganization(e.target.value)} className="w-full border rounded-lg px-3 py-2" />
+          <label className="text-sm font-semibold text-gray-700">Host Organization</label>
+          <select 
+            required 
+            value={orgId} 
+            onChange={e => setOrgId(e.target.value)} 
+            className="w-full border rounded-lg px-3 py-2 bg-white"
+          >
+            {organizations.map(o => (
+              <option key={o.id} value={o.id}>{o.name}</option>
+            ))}
+          </select>
         </div>
         <div className="space-y-1">
           <label className="text-sm font-semibold text-gray-700">Description</label>
@@ -84,5 +97,6 @@ export default function Admin() {
         </button>
       </form>
     </div>
+  </div>
   )
 }

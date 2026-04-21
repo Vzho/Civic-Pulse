@@ -95,9 +95,12 @@ export default function Profile() {
             <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Activity & Status</h3>
             <div className="space-y-3 mb-8">
               <div className="bg-white p-4 rounded-xl border border-gray-100 flex items-center shadow-sm">
-                <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full mr-4 ring-4 ring-emerald-50"></div>
-                <div className="flex-1 font-medium text-[15px] text-gray-900">Active now</div>
-                <span className="text-emerald-600 text-[13px] font-medium">Active</span>
+                <div className="relative mr-4">
+                  <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full"></div>
+                  <div className="absolute inset-0 w-2.5 h-2.5 bg-emerald-500 rounded-full animate-ping opacity-75"></div>
+                </div>
+                <div className="flex-1 font-medium text-[15px] text-gray-900">{user.status || 'Active now'}</div>
+                <span className="text-emerald-600 text-[13px] font-medium font-serif italic">Online</span>
               </div>
               <div className="bg-white p-4 rounded-xl border border-gray-100 flex items-center shadow-sm">
                 <div className="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center mr-3">
