@@ -28,22 +28,56 @@ export default function Leaderboard() {
     const areaSeed = activeArea.charCodeAt(0) + activeArea.length;
     
     let list = mockLeaderboard.map((u) => {
-      // Generate some deterministic variation based on the filters
-      const pseudoRand = ((parseInt(u.id) * areaSeed) % 10) / 10 + 0.5; // 0.5 to 1.4
+      // Create a unique seed based on both Area and Time to ensure different scrambles
+      const areaSeed = activeArea.charCodeAt(0) + activeArea.length;
+      const timeSeed = activeTime.charCodeAt(0) * activeTime.length;
+      const combinedSeed = areaSeed + timeSeed + parseInt(u.id);
+      
+      // Deterministic randomness (0.5 to 1.5)
+      const pseudoRand = ((combinedSeed * 13) % 10) / 10 + 0.5;
+      
       let pts = Math.floor(u.pts * timeMultiplier * pseudoRand);
       let init = u.init;
+      let name = u.name;
       
       if (u.isMe) {
-        // Sync "me" with actual user points, but scaled by time filter
-        pts = Math.floor(user.points * timeMultiplier * (activeArea === "Berkeley" || activeArea === "All areas" ? 1 : 0.6));
+        // User is strong in Berkeley Today, but maybe not All Time everywhere
+        let powerFactor = 0.5;
+        if (activeArea === "Berkeley" && activeTime === "Today") powerFactor = 1.3;
+        else if (activeArea === "Berkeley") powerFactor = 0.9;
+        else if (activeArea === "All areas") powerFactor = 0.7;
+        
+        // Scale user points
+        pts = Math.floor(1200 * timeMultiplier * powerFactor * pseudoRand);
         init = `${user.firstName.charAt(0) || ''}${user.lastName.charAt(0) || ''}`;
+      } else {
+        // Dynamic Regional/Time Champions
+        if (activeArea === "Oakland" && u.id === "1") {
+          name = activeTime === "All time" ? "James " + "S.".repeat(activeTime.length % 2 + 1) : "James S.";
+          init = "JS";
+          pts = Math.floor(pts * 1.5);
+        } else if (activeArea === "Fremont" && u.id === "2") {
+          name = "Lydia G.";
+          init = "LG";
+          pts = Math.floor(pts * 1.6);
+        } else if (activeTime === "All time" && u.id === "4") {
+          // Special veteran for all time
+          name = "Elder Citizen";
+          init = "EC";
+          pts = Math.floor(pts * 1.8);
+        }
       }
       
-      return { ...u, pts, init };
+      return { ...u, pts, init, name };
     });
 
     list.sort((a, b) => b.pts - a.pts);
-    return list.map((u, i) => ({ ...u, rank: i + 1, name: u.isMe ? "You" : u.name, avatar: u.isMe ? user.avatar : undefined }));
+    return list.map((u, i) => ({ 
+      ...u, 
+      rank: i + 1, 
+      name: u.isMe ? "You" : u.name, 
+      avatar: u.isMe ? user.avatar : undefined 
+    }));
   }, [activeTime, activeArea, user.points, user.firstName, user.lastName, user.avatar]);
 
   const topThree = displayLeaderboard.slice(0, 3);

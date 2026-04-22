@@ -287,15 +287,7 @@ export const useStore = create<AppState>()(
             ? state.user.rsvps.filter((id) => id !== eventId)
             : [...state.user.rsvps, eventId];
             
-          // Also update attendee count locally
-          const newEvents = state.events.map(e => {
-            if (e.id === eventId) {
-                return { ...e, attendees: isRsvpd ? e.attendees - 1 : e.attendees + 1 }
-            }
-            return e;
-          });
-
-          return { user: { ...state.user, rsvps: newRsvps }, events: newEvents };
+          return { user: { ...state.user, rsvps: newRsvps } };
         }),
       addEvent: (event) => set((state) => ({ events: [event, ...state.events] })),
       updateUser: (data) => set((state) => ({ user: { ...state.user, ...data } })),

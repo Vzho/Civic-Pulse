@@ -4,6 +4,7 @@ import { cn } from "../lib/utils";
 import { Sun, Moon } from "lucide-react";
 import ChallengeSheet from "../components/ui/ChallengeSheet";
 import EditProfileSheet from "../components/ui/EditProfileSheet";
+import { useDraggableScroll } from "../hooks/useDraggableScroll";
 
 type Tab = "Overview" | "Records" | "Friends";
 
@@ -13,6 +14,7 @@ export default function Profile() {
   
   const [challengeTarget, setChallengeTarget] = useState<string | null>(null);
   const [isEditingProfile, setIsEditingProfile] = useState(false);
+  const badgeScrollProps = useDraggableScroll();
 
   const initials = `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`;
   
@@ -72,7 +74,7 @@ export default function Profile() {
           </div>
           <div>
             <div className="text-[20px] font-bold leading-none">{user.points.toLocaleString()}</div>
-            <div className="text-emerald-100 text-[11px] mt-1">Points</div>
+            <div className="text-emerald-100 text-[11px] mt-1">Pulse Credit</div>
           </div>
           <div>
             <div className="text-[20px] font-bold leading-none">41</div>
@@ -139,7 +141,7 @@ export default function Profile() {
                   <div className="font-medium text-[15px] text-gray-900 dark:text-gray-100">Invite 1 friend</div>
                   <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">0 / 1 completed</div>
                 </div>
-                <span className="text-emerald-600 dark:text-emerald-400 font-medium text-sm">+30 pts</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-medium text-sm">+50 pts</span>
               </div>
               <div className="bg-white dark:bg-gray-900 p-4 rounded-xl border border-gray-100 dark:border-gray-800 flex items-center shadow-sm transition-colors duration-300">
                 <div className="w-8 h-8 rounded-full bg-orange-50 dark:bg-orange-900/30 text-orange-500 flex items-center justify-center mr-3 shrink-0">📝</div>
@@ -147,25 +149,160 @@ export default function Profile() {
                   <div className="font-medium text-[15px] text-gray-900 dark:text-gray-100">Comment on 2 local bills</div>
                   <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">1 / 2 completed</div>
                 </div>
-                <span className="text-emerald-600 dark:text-emerald-400 font-medium text-sm">+40 pts</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-medium text-sm">+50 pts</span>
               </div>
             </div>
 
             <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-3">Badges Earned</h3>
-            <div className="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+            <div 
+              className={cn("flex gap-4 overflow-x-auto no-scrollbar pb-4 -mx-5 px-5 select-none", badgeScrollProps.className)}
+              ref={badgeScrollProps.ref}
+              onMouseDown={badgeScrollProps.onMouseDown}
+              onMouseLeave={badgeScrollProps.onMouseLeave}
+              onMouseUp={badgeScrollProps.onMouseUp}
+              onMouseMove={badgeScrollProps.onMouseMove}
+              onClickCapture={badgeScrollProps.onClickCapture}
+            >
               {[
-                { name: 'First event', icon: '⭐', color: 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600' },
-                { name: 'Civic streak', icon: '🔥', color: 'bg-orange-50 dark:bg-orange-900/30 text-orange-500' },
-                { name: 'Connector', icon: '💬', color: 'bg-blue-50 dark:bg-blue-900/30 text-blue-500' },
-                { name: 'Top 100', icon: '🏆', color: 'bg-gray-50 dark:bg-gray-800 text-gray-400' },
+                { 
+                  name: 'Labor Champion', 
+                  id: 'labor',
+                  render: () => (
+                    <svg viewBox="0 0 200 200" className="w-12 h-12 drop-shadow-sm">
+                      <g fill="#F2B041">
+                        <rect x="82" y="4" width="36" height="192" rx="5" />
+                        <rect x="82" y="4" width="36" height="192" rx="5" transform="rotate(45 100 100)" />
+                        <rect x="82" y="4" width="36" height="192" rx="5" transform="rotate(90 100 100)" />
+                        <rect x="82" y="4" width="36" height="192" rx="5" transform="rotate(135 100 100)" />
+                        <circle cx="100" cy="100" r="76" />
+                      </g>
+                      <circle cx="100" cy="100" r="66" fill="#FFFFFF" />
+                      <clipPath id="app-logo-clip-engineering">
+                        <circle cx="100" cy="100" r="66" />
+                      </clipPath>
+                      <g clipPath="url(#app-logo-clip-engineering)">
+                        <path d="M -5 200 C 5 130, 20 108, 42 108 C 55 108, 65 120, 65 200 Z" fill="#68717A" />
+                        <ellipse cx="42" cy="98" rx="15" ry="16" fill="#68717A" />
+                        <path d="M 27 94 C 27 72, 57 72, 57 94 Z" fill="#F2B041" />
+                        <path d="M 21 94 Q 42 85 63 94 L 65 98 Q 42 90 19 98 Z" fill="#F2B041" />
+                        <path d="M 205 200 C 195 130, 180 108, 158 108 C 145 108, 135 120, 135 200 Z" fill="#68717A" />
+                        <ellipse cx="158" cy="98" rx="15" ry="16" fill="#68717A" />
+                        <path d="M 143 94 C 143 72, 173 72, 173 94 Z" fill="#F2B041" />
+                        <path d="M 137 94 Q 158 85 179 94 L 181 98 Q 158 90 135 98 Z" fill="#F2B041" />
+                        <path d="M 100 105 C 85 90, 60 55, 35 20 L 20 30 C 50 70, 65 120, 68 200 L 132 200 C 135 120, 150 70, 180 30 L 165 20 C 140 55, 115 90, 100 105 Z" fill="#68717A" stroke="#FFFFFF" strokeWidth="7" strokeLinejoin="round" />
+                        <ellipse cx="100" cy="62" rx="17" ry="18" fill="#68717A" />
+                        <path d="M 81 56 C 81 30, 119 30, 119 56 Z" fill="#F2B041" />
+                        <path d="M 73 56 Q 100 45 127 56 L 130 61 Q 100 51 70 61 Z" fill="#F2B041" />
+                      </g>
+                    </svg>
+                  )
+                },
+                { 
+                  name: 'Civic Star', 
+                  id: 'star',
+                  render: () => (
+                    <svg viewBox="-15 -15 230 230" className="w-12 h-12 drop-shadow-sm">
+                      <circle cx="100" cy="100" r="85" fill="#F8D364" />
+                      <g fill="#F8D364">
+                        <circle cx="100" cy="15" r="24" />
+                        <circle cx="100" cy="15" r="24" transform="rotate(30 100 100)" />
+                        <circle cx="100" cy="15" r="24" transform="rotate(60 100 100)" />
+                        <circle cx="100" cy="15" r="24" transform="rotate(90 100 100)" />
+                        <circle cx="100" cy="15" r="24" transform="rotate(120 100 100)" />
+                        <circle cx="100" cy="15" r="24" transform="rotate(150 100 100)" />
+                        <circle cx="100" cy="15" r="24" transform="rotate(180 100 100)" />
+                        <circle cx="100" cy="15" r="24" transform="rotate(210 100 100)" />
+                        <circle cx="100" cy="15" r="24" transform="rotate(240 100 100)" />
+                        <circle cx="100" cy="15" r="24" transform="rotate(270 100 100)" />
+                        <circle cx="100" cy="15" r="24" transform="rotate(300 100 100)" />
+                        <circle cx="100" cy="15" r="24" transform="rotate(330 100 100)" />
+                      </g>
+                      <circle cx="100" cy="100" r="72" fill="#E25454" />
+                      <circle cx="100" cy="100" r="56" fill="#C43434" stroke="#B02C2C" strokeWidth="2" />
+                      <polygon points="100,68 109.4,86.8 130.4,89.9 114.2,105.7 118.8,126.1 100,116.2 81.2,126.1 85.8,105.7 69.6,89.9 90.6,86.8" fill="#D9B54A" stroke="#D9B54A" strokeWidth="4" strokeLinejoin="round" transform="translate(0, 5)" />
+                      <polygon points="100,68 109.4,86.8 130.4,89.9 114.2,105.7 118.8,126.1 100,116.2 81.2,126.1 85.8,105.7 69.6,89.9 90.6,86.8" fill="#FCE77D" stroke="#FCE77D" strokeWidth="4" strokeLinejoin="round" />
+                    </svg>
+                  )
+                },
+                { 
+                  name: 'Safety Guardian', 
+                  id: 'security',
+                  render: () => (
+                    <svg viewBox="0 0 200 200" className="w-12 h-12 drop-shadow-2xl">
+                      <defs>
+                        <linearGradient id="app-shield-goldOuter" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#E6C25B" />
+                          <stop offset="30%" stopColor="#FFF5B8" />
+                          <stop offset="70%" stopColor="#B38B22" />
+                          <stop offset="100%" stopColor="#FFF5B8" />
+                        </linearGradient>
+                        <linearGradient id="app-shield-goldInner" x1="100%" y1="100%" x2="0%" y2="0%">
+                          <stop offset="0%" stopColor="#997012" />
+                          <stop offset="40%" stopColor="#FCE17A" />
+                          <stop offset="100%" stopColor="#805C07" />
+                        </linearGradient>
+                        <linearGradient id="app-shield-goldCore" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#E8C560" />
+                          <stop offset="50%" stopColor="#F2D780" />
+                          <stop offset="100%" stopColor="#C29A29" />
+                        </linearGradient>
+                        <linearGradient id="app-shield-darkCenter" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#344154" />
+                          <stop offset="50%" stopColor="#1D2633" />
+                          <stop offset="100%" stopColor="#0A0F14" />
+                        </linearGradient>
+                        <path id="app-shield-text-arc" d="M 20 85 Q 100 30 180 85" fill="none" />
+                      </defs>
+                      <path d="M 100 15 Q 140 35 180 20 Q 185 80 180 110 C 170 160 140 185 100 195 C 60 185 30 160 20 110 Q 15 80 20 20 Q 60 35 100 15 Z" fill="url(#app-shield-goldOuter)" />
+                      <path d="M 100 23 Q 137 41 170 28 Q 174 80 170 107 C 161 152 135 175 100 184 C 65 175 39 152 30 107 Q 26 80 30 28 Q 63 41 100 23 Z" fill="url(#app-shield-goldInner)" />
+                      <path d="M 100 30 Q 134 47 162 36 Q 165 80 162 104 C 154 145 130 166 100 174 C 70 166 46 145 38 104 Q 35 80 38 36 Q 66 47 100 30 Z" fill="url(#app-shield-goldCore)" />
+                      <circle cx="100" cy="115" r="45" fill="url(#app-shield-darkCenter)" stroke="#8C6A1A" strokeWidth="2.5" />
+                      <text font-family="Arial, sans-serif" font-weight="900" font-size="20" letter-spacing="1.5">
+                        <textPath href="#app-shield-text-arc" startOffset="50%" text-anchor="middle" fill="#1A1A1A" stroke="#E6C25B" strokeWidth="1.2">SECURITY</textPath>
+                      </text>
+                      <polygon points="100,115 100,80 91.8,98.7" fill="#FFF4C2" />
+                      <polygon points="100,115 66.7,105.8 91.8,98.7" fill="#FFF4C2" />
+                      <polygon points="100,115 79.4,143.3 86.7,119.9" fill="#FFF4C2" />
+                      <polygon points="100,115 100,80 108.2,98.7" fill="#E0B843" />
+                      <polygon points="100,115 86.7,119.9 66.7,105.8" fill="#E0B843" />
+                      <polygon points="100,115 100,126.2 79.4,143.3" fill="#E0B843" />
+                      <polygon points="100,115 108.2,98.7 133.3,105.8" fill="#B38B22" />
+                      <polygon points="100,115 113.3,119.9 120.6,143.3" fill="#B38B22" />
+                      <polygon points="100,115 133.3,105.8 113.3,119.9" fill="#6A4D0F" />
+                      <polygon points="100,115 120.6,143.3 100,126.2" fill="#6A4D0F" />
+                    </svg>
+                  )
+                },
+                { 
+                  name: 'Top 100', 
+                  id: 'rank',
+                  render: () => (
+                    <div className="w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-xl shadow-inner border border-orange-200 dark:border-orange-800 transition-colors">🏆</div>
+                  )
+                },
+                { 
+                  name: 'City Voice', 
+                  id: 'voice',
+                  render: () => (
+                    <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-xl shadow-inner border border-blue-200 dark:border-blue-800 transition-colors">📣</div>
+                  )
+                },
+                { 
+                  name: 'Climate Ally', 
+                  id: 'climate',
+                  render: () => (
+                    <div className="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-xl shadow-inner border border-emerald-200 dark:border-emerald-800 transition-colors">🌱</div>
+                  )
+                },
               ].map(b => (
-                <div key={b.name} className="w-[88px] h-[92px] bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center shadow-sm shrink-0 transition-colors duration-300">
-                  <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-xl mb-2", b.color)}>
-                    {b.icon}
+                <div key={b.id} className="w-[100px] h-[108px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl flex flex-col items-center justify-center shadow-sm shrink-0 transition-all duration-300 hover:scale-105 hover:shadow-md cursor-pointer">
+                  <div className="mb-2">
+                    {b.render()}
                   </div>
-                  <div className="text-[11px] font-medium text-gray-600 dark:text-gray-300 px-1 text-center leading-tight">{b.name}</div>
+                  <div className="text-[11px] font-bold text-gray-700 dark:text-gray-200 px-1 text-center leading-tight">{b.name}</div>
                 </div>
               ))}
+              <div className="w-2 shrink-0 h-full" aria-hidden="true" />
             </div>
 
             <div className="mt-12 mb-8">

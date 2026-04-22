@@ -46,7 +46,7 @@ export default function ParticipantsSheet({ isOpen, onClose, count, eventTitle }
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
             className="absolute bottom-0 left-0 right-0 z-50 flex justify-center pointer-events-none"
           >
-            <div className="w-full h-[75vh] bg-[#fcfaf7] dark:bg-gray-950 rounded-t-[2.5rem] flex flex-col shadow-2xl border-t border-white dark:border-gray-800 pointer-events-auto relative overflow-hidden transition-colors duration-300">
+            <div className="w-full max-w-md h-[75vh] bg-[#fcfaf7] dark:bg-gray-950 rounded-t-[2.5rem] flex flex-col shadow-2xl border-t border-white dark:border-gray-800 pointer-events-auto relative overflow-hidden transition-colors duration-300">
               {/* Handle */}
               <div className="flex justify-center pt-3 pb-1">
                 <div className="w-12 h-1.5 bg-gray-200 dark:bg-gray-800 rounded-full" />

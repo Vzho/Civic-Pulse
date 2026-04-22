@@ -10,12 +10,12 @@ interface ChallengeSheetProps {
 }
 
 const mockQuests = [
-  { id: '1', title: 'Attend a city council meeting', desc: 'Show up to any Berkeley, Oakland, or Fremont city council session and check in via the app.', pts: 80, days: 7, type: 'City council' },
-  { id: '2', title: 'Submit public comment', desc: 'Speak or write during public comment at any official government meeting on a local issue.', pts: 60, days: 7, type: 'City council' },
-  { id: '3', title: 'Join a neighborhood cleanup', desc: 'Participate in any organized cleanup event in your area and log at least 1 hour of service.', pts: 70, days: 7, type: 'Community' },
-  { id: '4', title: 'Attend a climate rally or forum', desc: 'Go to a local climate action event or public forum and check in. Bonus points for bringing a friend.', pts: 90, days: 7, type: 'Climate' },
-  { id: '5', title: 'Volunteer at a food pantry', desc: 'Sign up and complete at least one volunteer shift at a local food bank or community pantry.', pts: 75, days: 7, type: 'Community' },
-  { id: '6', title: 'Support a labor negotiation rally', desc: 'Stand in solidarity with local workers at an upcoming labor rally and sign the digital pledge.', pts: 85, days: 7, type: 'Labor' },
+  { id: '1', title: 'Attend a city council meeting', desc: 'Show up to any Berkeley, Oakland, or Fremont city council session and check in via the app.', pts: 50, days: 7, type: 'City council' },
+  { id: '2', title: 'Submit public comment', desc: 'Speak or write during public comment at any official government meeting on a local issue.', pts: 50, days: 7, type: 'City council' },
+  { id: '3', title: 'Join a neighborhood cleanup', desc: 'Participate in any organized cleanup event in your area and log at least 1 hour of service.', pts: 50, days: 7, type: 'Community' },
+  { id: '4', title: 'Attend a climate rally or forum', desc: 'Go to a local climate action event or public forum and check in. Bonus points for bringing a friend.', pts: 50, days: 7, type: 'Climate' },
+  { id: '5', title: 'Volunteer at a food pantry', desc: 'Sign up and complete at least one volunteer shift at a local food bank or community pantry.', pts: 50, days: 7, type: 'Community' },
+  { id: '6', title: 'Support a labor negotiation rally', desc: 'Stand in solidarity with local workers at an upcoming labor rally and sign the digital pledge.', pts: 50, days: 7, type: 'Labor' },
 ];
 
 export default function ChallengeSheet({ isOpen, onClose, friendName }: ChallengeSheetProps) {
@@ -53,7 +53,7 @@ export default function ChallengeSheet({ isOpen, onClose, friendName }: Challeng
       />
       <div 
         className={cn(
-          "w-full h-[85vh] bg-[#f8f9fa] dark:bg-gray-900 rounded-t-3xl relative flex flex-col transition-all duration-300 shadow-[0_-8px_30px_rgba(0,0,0,0.12)] border-t border-gray-100 dark:border-gray-800",
+          "w-full max-w-md h-[85vh] bg-[#f8f9fa] dark:bg-gray-900 rounded-t-3xl relative flex flex-col transition-all duration-300 shadow-[0_-8px_30px_rgba(0,0,0,0.12)] border-t border-gray-100 dark:border-gray-800",
           isOpen ? "translate-y-0" : "translate-y-full"
         )}
         onClick={(e) => e.stopPropagation()}

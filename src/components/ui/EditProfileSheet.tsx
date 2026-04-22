@@ -62,7 +62,7 @@ export default function EditProfileSheet({ isOpen, onClose }: EditProfileSheetPr
       {/* Bottom Sheet Container */}
       <div 
         className={cn(
-          "w-full bg-white dark:bg-gray-900 rounded-t-3xl relative flex flex-col transition-all duration-300 shadow-[0_-8px_30px_rgba(0,0,0,0.12)] p-6 pb-soft-keyboard border-t border-gray-100 dark:border-gray-800",
+          "w-full max-w-md bg-white dark:bg-gray-900 rounded-t-3xl relative flex flex-col transition-all duration-300 shadow-[0_-8px_30px_rgba(0,0,0,0.12)] p-6 pb-soft-keyboard border-t border-gray-100 dark:border-gray-800",
           isOpen ? "translate-y-0" : "translate-y-full"
         )}
         onClick={(e) => e.stopPropagation()}
