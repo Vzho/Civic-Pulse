@@ -70,7 +70,7 @@ export default function Home() {
     ? filteredEventsForTag
     : filteredEventsForTag.filter(e => e.type === activeType);
 
-  const featuredEvents = events.slice(0, 3);
+  const featuredEvents = events.slice(0, 2);
 
   const getTagColor = (topic: string) => {
     switch (topic.toLowerCase()) {
@@ -115,7 +115,7 @@ export default function Home() {
           </button>
           <button 
             onClick={() => setAssistantOpen(true)}
-            className="w-[38px] h-[38px] border border-gray-200 dark:border-gray-800 rounded-xl flex items-center justify-center bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all active:scale-95 shadow-sm overflow-hidden"
+            className="w-[38px] h-[38px] border border-gray-200 dark:border-gray-800 rounded-full flex items-center justify-center bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all active:scale-95 shadow-sm overflow-hidden"
           >
             <svg viewBox="0 0 100 100" className="w-[28px] h-[28px]">
               {/* Background Blue Bubble */}

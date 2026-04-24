@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../store/useStore";
 import { cn } from "../lib/utils";
@@ -16,6 +16,70 @@ const mockLeaderboard = [
   { id: '7', name: "LibertyLover88", init: "LL", pts: 540, events: 2, rank: 7, isMe: false },
   { id: '8', name: "BerkeleyBlaze", init: "BB", pts: 420, events: 2, rank: 8, isMe: false },
 ];
+
+function CountdownTimer({ area }: { area: string }) {
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    // Generate a deterministic target date based on area
+    const now = new Date().getTime();
+    let daysToAdd = 3;
+    if (area === "Oakland") daysToAdd = 5;
+    else if (area === "Fremont") daysToAdd = 2;
+    else if (area === "All areas") daysToAdd = 14;
+
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + daysToAdd);
+    targetDate.setHours(0, 0, 0, 0);
+    const target = targetDate.getTime();
+
+    const interval = setInterval(() => {
+      const current = new Date().getTime();
+      const distance = target - current;
+
+      if (distance < 0) {
+        clearInterval(interval);
+        return;
+      }
+
+      setTimeLeft({
+        days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds: Math.floor((distance % (1000 * 60)) / 1000),
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [area]);
+
+  const TimeBox = ({ value, label }: { value: number, label: string }) => (
+    <div className="flex flex-col items-center">
+      <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-lg font-bold text-emerald-400">
+        {String(value).padStart(2, '0')}
+      </div>
+      <span className="text-[8px] uppercase tracking-wider text-gray-400 mt-1">{label}</span>
+    </div>
+  );
+
+  return (
+    <div className="bg-[#0c1a14] dark:bg-black rounded-2xl p-4 flex items-center justify-between shadow-xl border border-white/5 mx-4 mt-2">
+      <div className="text-left">
+        <div className="text-[9px] uppercase tracking-[0.2em] text-emerald-500/80 font-bold mb-1">Season 3 · Spring 2026</div>
+        <div className="text-white text-lg font-bold">Resets in</div>
+      </div>
+      <div className="flex items-center gap-1.5">
+        <TimeBox value={timeLeft.days} label="Days" />
+        <span className="text-emerald-500 font-bold mb-4">:</span>
+        <TimeBox value={timeLeft.hours} label="Hrs" />
+        <span className="text-emerald-500 font-bold mb-4">:</span>
+        <TimeBox value={timeLeft.minutes} label="Min" />
+        <span className="text-emerald-500 font-bold mb-4">:</span>
+        <TimeBox value={timeLeft.seconds} label="Sec" />
+      </div>
+    </div>
+  );
+}
 
 export default function Leaderboard() {
   const { user } = useStore();
@@ -128,6 +192,9 @@ export default function Leaderboard() {
             </div>
           </div>
         </div>
+
+        {/* Countdown Timer */}
+        <CountdownTimer area={activeArea} />
 
         {/* Podium */}
         <div className="px-5 py-8 flex justify-center items-end gap-3 bg-[#f4f2ea] dark:bg-gray-950 mt-2 transition-colors duration-300">

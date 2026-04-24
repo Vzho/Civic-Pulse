@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { X, Send, Info, MapPin, Calendar, Star, Users, ChevronRight, MessageSquare } from "lucide-react";
 import { cn } from "../../lib/utils";
 
@@ -102,36 +102,36 @@ export default function AssistantSheet({ isOpen, onClose, contextMessage }: Assi
           time: now
         }]);
       }, 800);
-    } else if (text.toLowerCase().includes("involved with ebcac") || text.toLowerCase().includes("events does ebcac")) {
+    } else if (text.toLowerCase().includes("involved with eblc") || text.toLowerCase().includes("events does eblc")) {
       setTimeout(() => {
         setMessages(prev => [...prev, { 
           role: 'ai', 
-          text: "EBCAC has several ways to get involved! You can attend their monthly town halls, sign up for the 'Green Streets' volunteer program, or join their policy advocacy subgroup. Here are their next events:",
+          text: "EBLC has several ways to get involved! You can attend their monthly town halls, sign up for the 'Green Streets' volunteer program, or join their policy advocacy subgroup. Here are their next events:",
           time: now,
           card: {
             type: 'events',
             eventsList: [
-              { id: 'e1', title: 'EBCAC Town Hall — Berkeley North', category: 'CIVIC · BERKELEY', date: 'Tue, May 6 · 6:40 PM', location: 'North Berkeley Senior Center', attending: 42, host: 'Hosted by EBCAC', points: 40, color: 'emerald' },
-              { id: 'e2', title: 'Community Garden Restoration', category: 'VOLUNTEER · OAKLAND', date: 'Sat, May 10 · 10:00 AM', location: 'West Oakland Hub', attending: 15, host: 'Hosted by EBCAC', points: 100, color: 'blue' },
+              { id: 'e1', title: 'EBLC Town Hall — Berkeley North', category: 'CIVIC · BERKELEY', date: 'Tue, May 6 · 6:40 PM', location: 'North Berkeley Senior Center', attending: 42, host: 'Hosted by EBLC', points: 40, color: 'emerald' },
+              { id: 'e2', title: 'Community Garden Restoration', category: 'VOLUNTEER · OAKLAND', date: 'Sat, May 10 · 10:00 AM', location: 'West Oakland Hub', attending: 15, host: 'Hosted by EBLC', points: 100, color: 'blue' },
             ]
           }
         }]);
       }, 800);
-    } else if (text.toLowerCase().includes("ebcac") && !text.toLowerCase().includes("climate")) {
+    } else if (text.toLowerCase().includes("eblc") && !text.toLowerCase().includes("climate")) {
       setTimeout(() => {
         setMessages(prev => [...prev, { 
           role: 'ai', 
-          text: "EBCAC typically stands for the East Bay Community Action Coalition, a nonprofit organization in California that focuses on community development, economic opportunity, and support services for local residents. It often partners with government agencies and nonprofits to run programs that engage and assist underserved communities.",
+          text: "A regional civic and policy organization in the East Bay that brings together businesses and community leaders. Focuses on public policy, economic development, and quality of life issues. Acts as a bridge between government, private sector, and the community, influencing decisions and shaping local initiatives",
           time: now,
           card: {
             type: 'org',
-            title: "East Bay Community Action Coalition",
+            title: "East Bay Leadership Council",
             avatar: "EB",
             tags: "NONPROFIT · COMMUNITY ORG",
-            pill: "EBCAC",
+            pill: "EBLC",
             body: (
               <>
-                <span className="font-bold">EBCAC</span> typically stands for the <span className="font-bold">East Bay Community Action Coalition</span>, a nonprofit organization in California that focuses on <span className="font-bold">community development</span>, <span className="font-bold">economic opportunity</span>, and <span className="font-bold">support services</span> for local residents. It often partners with government agencies and nonprofits to run programs that engage and assist underserved communities.
+                A regional civic and policy organization in the <span className="font-bold">East Bay</span> that brings together businesses and community leaders. Focuses on <span className="font-bold">public policy</span>, <span className="font-bold">economic development</span>, and <span className="font-bold">quality of life issues</span>. Acts as a bridge between government, private sector, and the community, influencing decisions and shaping local initiatives
               </>
             )
           }
@@ -141,15 +141,13 @@ export default function AssistantSheet({ isOpen, onClose, contextMessage }: Assi
       setTimeout(() => {
         setMessages(prev => [...prev, { 
           role: 'ai', 
-          text: "Found 4 upcoming climate events near Berkeley for you 🌱",
+          text: "Found 2 upcoming climate events near Berkeley for you 🌱",
           time: now,
           card: {
             type: 'events',
             eventsList: [
-              { id: 'c1', title: 'East Bay Climate Action Coalition — Monthly Meetup', category: 'CLIMATE · BERKELEY', date: 'Tue, Apr 22 · 6:00 PM', location: 'Online + Oakland Hub', attending: 89, host: 'Hosted by EBCAC', points: 70, color: 'emerald' },
-              { id: 'c2', title: 'Berkeley Climate Emergency Town Hall', category: 'CLIMATE · BERKELEY', date: 'Sat, Apr 26 · 10:00 AM', location: 'Berkeley City Hall, Room 1', attending: 54, host: 'City of Berkeley', points: 80, color: 'blue' },
-              { id: 'c3', title: 'Creeks & Shoreline Restoration Volunteer Day', category: 'CLIMATE · BERKELEY', date: 'Sun, Apr 27 · 9:00 AM – 12:00 PM', location: 'Aquatic Park, Berkeley Marina', attending: 31, host: 'Groundwork Richmond', points: 90, color: 'orange' },
-              { id: 'c4', title: 'Youth Climate Strike — Bay Area Rally', category: 'CLIMATE · BERKELEY', date: 'Fri, May 2 · 3:30 PM', location: 'Civic Center Park, Berkeley', attending: 210, host: 'Sunrise Movement', points: 75, color: 'indigo' },
+              { id: '2', title: 'Earth Day Cleanup', category: 'CLIMATE · BERKELEY', date: 'Sat, Apr 18 · 9:00 AM', location: '160 University Ave, Berkeley, CA 94710', attending: 132, host: 'Hosted by Berkeley City Council', points: 80, color: 'emerald' },
+              { id: '1', title: 'Arbor Day + Spring Planting Events', category: 'CLIMATE · BERKELEY', date: 'Sat, Apr 18 · 9:00 AM – 11:00 AM', location: '160 University Ave, Berkeley, CA 94710', attending: 47, host: 'Hosted by Berkeley City Council', points: 80, color: 'blue' },
             ]
           }
         }]);
@@ -157,7 +155,7 @@ export default function AssistantSheet({ isOpen, onClose, contextMessage }: Assi
         setTimeout(() => {
           setMessages(prev => [...prev, { 
             role: 'ai', 
-            text: "Tap any card to learn more about the organizer or get directions. Want me to filter by weekend only or show events with the most points?",
+            text: "Tap any card to learn more or get directions. Want me to show more climate events or filter by date?",
             time: now
           }]);
         }, 1200);
@@ -179,7 +177,7 @@ export default function AssistantSheet({ isOpen, onClose, contextMessage }: Assi
           card: {
             type: 'events',
             eventsList: [
-              { id: 'v1', title: 'Monthly Community Meeting', category: 'CIVIC · DISCUSSION', date: 'Wed, May 21 · 6:00 PM', location: 'Berkley Community Center', attending: 32, host: 'EBCAC', points: 40, color: 'emerald' },
+              { id: 'v1', title: 'Monthly Community Meeting', category: 'CIVIC · DISCUSSION', date: 'Wed, May 21 · 6:00 PM', location: 'Berkley Community Center', attending: 32, host: 'EBLC', points: 40, color: 'emerald' },
               { id: 'v2', title: 'Local Policy Workshop', category: 'POLICY · EDUCATION', date: 'Sat, May 24 · 2:00 PM', location: 'Public Library', attending: 18, host: 'City of Berkeley', points: 30, color: 'blue' },
             ]
           }
@@ -267,9 +265,7 @@ export default function AssistantSheet({ isOpen, onClose, contextMessage }: Assi
   const suggestions = [
     { text: 'What does "coalition" mean?', icon: <Info className="w-4 h-4 text-emerald-600" />, sub: "Glossary · Civic term", color: "bg-emerald-50 dark:bg-emerald-950/30", special: true },
     { text: 'What is the Bay Area?', icon: <MapPin className="w-4 h-4 text-blue-500" />, sub: "Geography · Local context", color: "bg-blue-50 dark:bg-blue-950/30" },
-    { text: 'What events does EBCAC run near me?', icon: <Calendar className="w-4 h-4 text-orange-500" />, sub: "Events · Berkeley area", color: "bg-orange-50 dark:bg-orange-950/30" },
     { text: 'What does "nonprofit" mean?', icon: <Star className="w-4 h-4 text-purple-500" />, sub: "Glossary · Org type", color: "bg-purple-50 dark:bg-purple-950/30" },
-    { text: 'How do I get involved with EBCAC?', icon: <Users className="w-4 h-4 text-emerald-500" />, sub: "Volunteering · Action", color: "bg-emerald-50 dark:bg-emerald-950/30" },
   ];
 
   return (
@@ -357,12 +353,14 @@ export default function AssistantSheet({ isOpen, onClose, contextMessage }: Assi
                         </div>
                         <div className="px-4 pb-4 flex gap-3">
                           <button 
+                            type="button"
                             onClick={() => handleSend(`View events for ${msg.card?.title}`)}
                             className="flex-1 py-2.5 rounded-full border border-gray-100 dark:border-gray-800 text-[14px] font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors bg-[#F5F2EA]/50"
                           >
                             View events
                           </button>
                           <button 
+                            type="button"
                             onClick={() => handleSend(`Learn more about ${msg.card?.title}`)}
                             className="flex-1 py-2.5 rounded-full bg-[#1A8D63] text-white text-[14px] font-bold hover:bg-[#157250] transition-colors"
                           >
@@ -469,7 +467,7 @@ export default function AssistantSheet({ isOpen, onClose, contextMessage }: Assi
           <div className="pt-4 pb-4">
              {messages[messages.length-1].role === 'ai' && messages[messages.length-1].text.includes("Tap any card") ? (
                <div className="flex gap-2 overflow-x-auto no-scrollbar pb-6">
-                 {['Weekend only', 'Most points first', 'Tell me about EBCAC'].map((opt, idx) => (
+                 {['Show me more climate events', 'Weekend only', 'Who organizes these?'].map((opt, idx) => (
                     <button 
                       key={idx}
                       onClick={() => handleSend(opt)}

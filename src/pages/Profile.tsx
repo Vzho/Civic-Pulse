@@ -15,6 +15,7 @@ export default function Profile() {
   const [challengeTarget, setChallengeTarget] = useState<string | null>(null);
   const [isEditingProfile, setIsEditingProfile] = useState(false);
   const badgeScrollProps = useDraggableScroll();
+  const challengeScrollProps = useDraggableScroll();
 
   const initials = `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`;
   
@@ -128,28 +129,128 @@ export default function Profile() {
             <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-3">Current Challenges</h3>
             <div className="space-y-3 mb-8">
               <div className="bg-white dark:bg-gray-900 p-4 rounded-xl border border-gray-100 dark:border-gray-800 flex items-center shadow-sm transition-colors duration-300">
-                <div className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-500 flex items-center justify-center mr-3 shrink-0">📍</div>
+                <div className="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-500 flex items-center justify-center mr-3 shrink-0">📍</div>
                 <div className="flex-1">
-                  <div className="font-medium text-[15px] text-gray-900 dark:text-gray-100">Attend 1 city meeting</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">0 / 1 completed</div>
+                  <div className="font-medium text-[15px] text-gray-900 dark:text-gray-100 italic transition-all">Attend 1 city meeting</div>
+                  <div className="text-[13px] text-gray-500 dark:text-gray-400 mt-0.5 font-light">0 / 1 completed</div>
                 </div>
-                <span className="text-emerald-600 dark:text-emerald-400 font-medium text-sm">+50 pts</span>
+                <span className="text-emerald-700 dark:text-emerald-400 font-bold text-[15px]">+40 pts</span>
               </div>
               <div className="bg-white dark:bg-gray-900 p-4 rounded-xl border border-gray-100 dark:border-gray-800 flex items-center shadow-sm transition-colors duration-300">
-                <div className="w-8 h-8 rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-emerald-500 flex items-center justify-center mr-3 shrink-0">👥</div>
+                <div className="w-10 h-10 rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-emerald-500 flex items-center justify-center mr-3 shrink-0">👥</div>
                 <div className="flex-1">
-                  <div className="font-medium text-[15px] text-gray-900 dark:text-gray-100">Invite 1 friend</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">0 / 1 completed</div>
+                  <div className="font-medium text-[15px] text-gray-900 dark:text-gray-100 italic transition-all">Invite 1 friend</div>
+                  <div className="text-[13px] text-gray-500 dark:text-gray-400 mt-0.5 font-light">0 / 1 completed</div>
                 </div>
-                <span className="text-emerald-600 dark:text-emerald-400 font-medium text-sm">+50 pts</span>
+                <span className="text-emerald-700 dark:text-emerald-400 font-bold text-[15px]">+50 pts</span>
               </div>
               <div className="bg-white dark:bg-gray-900 p-4 rounded-xl border border-gray-100 dark:border-gray-800 flex items-center shadow-sm transition-colors duration-300">
-                <div className="w-8 h-8 rounded-full bg-orange-50 dark:bg-orange-900/30 text-orange-500 flex items-center justify-center mr-3 shrink-0">📝</div>
+                <div className="w-10 h-10 rounded-full bg-orange-50 dark:bg-orange-900/30 text-orange-500 flex items-center justify-center mr-3 shrink-0">📝</div>
                 <div className="flex-1">
-                  <div className="font-medium text-[15px] text-gray-900 dark:text-gray-100">Comment on 2 local bills</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">1 / 2 completed</div>
+                  <div className="font-medium text-[15px] text-gray-900 dark:text-gray-100 italic transition-all">Comment on 2 local bills</div>
+                  <div className="text-[13px] text-gray-500 dark:text-gray-400 mt-0.5 font-light">1 / 2 completed</div>
                 </div>
-                <span className="text-emerald-600 dark:text-emerald-400 font-medium text-sm">+50 pts</span>
+                <span className="text-emerald-700 dark:text-emerald-400 font-bold text-[15px]">+20 pts</span>
+              </div>
+              <div className="bg-white dark:bg-gray-900 p-4 rounded-xl border border-gray-100 dark:border-gray-800 flex items-center shadow-sm transition-colors duration-300">
+                <div className="w-10 h-10 rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-emerald-500 flex items-center justify-center mr-3 shrink-0">🤝</div>
+                <div className="flex-1">
+                  <div className="font-medium text-[15px] text-gray-900 dark:text-gray-100 italic transition-all">Attend 1 volunteering event</div>
+                  <div className="text-[13px] text-gray-500 dark:text-gray-400 mt-0.5 font-light">0 / 1 completed</div>
+                </div>
+                <span className="text-emerald-700 dark:text-emerald-400 font-bold text-[15px]">+80 pts</span>
+              </div>
+            </div>
+
+            <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-3">Local Challenges</h3>
+            <p className="text-[13px] text-gray-500 dark:text-gray-400 -mt-2 mb-4 font-light">
+              Time-limited · Earn badges & recognition 
+              <span 
+                onClick={() => setActiveTab("Records")}
+                className="float-right text-emerald-600 dark:text-emerald-400 font-bold hover:underline cursor-pointer"
+              >
+                See all →
+              </span>
+            </p>
+            <div 
+              className={cn("flex gap-4 overflow-x-auto no-scrollbar pb-6 -mx-5 px-5 select-none", challengeScrollProps.className)}
+              ref={challengeScrollProps.ref}
+              onMouseDown={challengeScrollProps.onMouseDown}
+              onMouseLeave={challengeScrollProps.onMouseLeave}
+              onMouseUp={challengeScrollProps.onMouseUp}
+              onMouseMove={challengeScrollProps.onMouseMove}
+              onClickCapture={challengeScrollProps.onClickCapture}
+            >
+              {/* Challenge 1 */}
+              <div className="min-w-[280px] bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-md overflow-hidden shrink-0 transition-colors duration-300">
+                <div className="h-24 bg-emerald-600 dark:bg-emerald-800 p-4 relative flex items-center justify-center">
+                  <div className="absolute top-3 left-3 bg-black/40 backdrop-blur-md px-2 py-0.5 rounded-full flex items-center gap-1.5">
+                    <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></div>
+                    <span className="text-[10px] text-white font-bold uppercase tracking-wider">9 days left</span>
+                  </div>
+                  <div className="text-4xl">🌱</div>
+                  <div className="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-xl">🥇</div>
+                </div>
+                <div className="p-4">
+                  <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1 italic transition-all">East Bay Climate Coalition</div>
+                  <h4 className="font-serif font-bold text-lg text-gray-900 dark:text-gray-100">Spring Climate Sprint</h4>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Ends May 3 · +200 pts + badge</div>
+                  <div className="mt-4 h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+                    <div className="h-full bg-emerald-500 w-1/3"></div>
+                  </div>
+                  <div className="flex justify-between items-center mt-2">
+                    <span className="text-[10px] text-gray-400 dark:text-gray-500 font-medium">1 / 3 events done</span>
+                    <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">🏅 Sprout Badge</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Challenge 2 */}
+              <div className="min-w-[280px] bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-md overflow-hidden shrink-0 transition-colors duration-300">
+                <div className="h-24 bg-[#1e4e8c] dark:bg-blue-900 p-4 relative flex items-center justify-center">
+                  <div className="absolute top-3 left-3 bg-black/40 backdrop-blur-md px-2 py-0.5 rounded-full flex items-center gap-1.5">
+                    <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></div>
+                    <span className="text-[10px] text-white font-bold uppercase tracking-wider">4 days left</span>
+                  </div>
+                  <div className="text-4xl text-white">🏛️</div>
+                  <div className="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-xl">🎖️</div>
+                </div>
+                <div className="p-4">
+                  <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1 italic transition-all">Berkeley City Council</div>
+                  <h4 className="font-serif font-bold text-lg text-gray-900 dark:text-gray-100">April Civic Voice Challenge</h4>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Ends Apr 30 · +150 pts + badge</div>
+                  <div className="mt-4 h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+                    <div className="h-full bg-blue-500 w-0"></div>
+                  </div>
+                  <div className="flex justify-between items-center mt-2">
+                    <span className="text-[10px] text-gray-400 dark:text-gray-500 font-medium">0 / 2 events done</span>
+                    <span className="text-[10px] text-blue-600 dark:text-blue-400 font-bold">🏅 Civic Voice</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Challenge 3: Neighbor Up May Challenge */}
+              <div className="min-w-[280px] bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-md overflow-hidden shrink-0 transition-colors duration-300">
+                <div className="h-24 bg-gradient-to-br from-[#8a4a00] to-[#ffa500] p-4 relative flex items-center justify-center">
+                  <div className="absolute top-3 left-3 bg-black/40 backdrop-blur-md px-2 py-0.5 rounded-full flex items-center gap-1.5">
+                    <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></div>
+                    <span className="text-[10px] text-white font-bold uppercase tracking-wider">21 days left</span>
+                  </div>
+                  <div className="text-4xl text-white drop-shadow-md">🍊</div>
+                  <div className="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-xl shadow-lg">⭐</div>
+                </div>
+                <div className="p-4">
+                  <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1 italic transition-all">Oakland Resilience Network</div>
+                  <h4 className="font-serif font-bold text-lg text-gray-900 dark:text-gray-100">Neighbor Up May Challenge</h4>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Ends May 15 · +250 pts + badge</div>
+                  <div className="mt-4 h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+                    <div className="h-full bg-orange-500 w-0"></div>
+                  </div>
+                  <div className="flex justify-between items-center mt-2">
+                    <span className="text-[10px] text-gray-400 dark:text-gray-500 font-medium">0 / 4 events done</span>
+                    <span className="text-[10px] text-orange-600 dark:text-orange-400 font-bold">🏅 Neighbor Star</span>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -257,8 +358,8 @@ export default function Profile() {
                       <path d="M 100 23 Q 137 41 170 28 Q 174 80 170 107 C 161 152 135 175 100 184 C 65 175 39 152 30 107 Q 26 80 30 28 Q 63 41 100 23 Z" fill="url(#app-shield-goldInner)" />
                       <path d="M 100 30 Q 134 47 162 36 Q 165 80 162 104 C 154 145 130 166 100 174 C 70 166 46 145 38 104 Q 35 80 38 36 Q 66 47 100 30 Z" fill="url(#app-shield-goldCore)" />
                       <circle cx="100" cy="115" r="45" fill="url(#app-shield-darkCenter)" stroke="#8C6A1A" strokeWidth="2.5" />
-                      <text font-family="Arial, sans-serif" font-weight="900" font-size="20" letter-spacing="1.5">
-                        <textPath href="#app-shield-text-arc" startOffset="50%" text-anchor="middle" fill="#1A1A1A" stroke="#E6C25B" strokeWidth="1.2">SECURITY</textPath>
+                      <text fontFamily="Arial, sans-serif" fontWeight="900" fontSize="20" letterSpacing="1.5">
+                        <textPath href="#app-shield-text-arc" startOffset="50%" textAnchor="middle" fill="#1A1A1A" stroke="#E6C25B" strokeWidth="1.2">SECURITY</textPath>
                       </text>
                       <polygon points="100,115 100,80 91.8,98.7" fill="#FFF4C2" />
                       <polygon points="100,115 66.7,105.8 91.8,98.7" fill="#FFF4C2" />

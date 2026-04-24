@@ -38,9 +38,24 @@ export default function EventDetail() {
         </button>
         <button 
           onClick={() => setAssistantOpen(true)}
-          className="p-2 border border-gray-200 dark:border-gray-700 rounded-full text-emerald-600 dark:text-emerald-400 bg-white dark:bg-gray-900 hover:bg-emerald-50 dark:hover:bg-emerald-900/40"
+          className="w-[38px] h-[38px] border border-gray-200 dark:border-gray-800 rounded-full flex items-center justify-center bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all active:scale-95 shadow-sm overflow-hidden"
         >
-          <Sparkles className="w-4 h-4" fill="currentColor"/>
+          <svg viewBox="0 0 100 100" className="w-[28px] h-[28px]">
+            {/* Background Blue Bubble */}
+            <g transform="translate(15, 5)">
+              <rect x="25" y="5" width="55" height="42" rx="8" fill="#38B0F1" />
+              <path d="M 65 47 L 75 62 L 75 47 Z" fill="#38B0F1" />
+            </g>
+            {/* Foreground Teal Bubble */}
+            <g transform="translate(5, 25)">
+              <rect x="0" y="0" width="58" height="44" rx="8" fill="#4BCB9F" />
+              <path d="M 15 44 L 15 62 L 25 44 Z" fill="#4BCB9F" />
+              {/* Dots */}
+              <circle cx="15" cy="22" r="3.5" fill="white" />
+              <circle cx="29" cy="22" r="3.5" fill="white" />
+              <circle cx="43" cy="22" r="3.5" fill="white" />
+            </g>
+          </svg>
         </button>
       </div>
 
@@ -95,11 +110,8 @@ export default function EventDetail() {
 
         <div>
           <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">About this {event.type.toLowerCase()}</h2>
-          <p className="text-[15px] text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+          <p className="text-[15px] text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
             {event.description}
-          </p>
-          <p className="text-[15px] text-gray-600 dark:text-gray-300 leading-relaxed">
-            This is a vital opportunity to engage with local policy makers and voice your community concerns. Join us early to secure seating and prepare your public comments.
           </p>
         </div>
       </div>
