@@ -30,7 +30,7 @@ export default function EventDetail() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#f4f2ea] dark:bg-gray-950 transition-colors duration-300">
+    <div className="flex flex-col min-h-full bg-[#f4f2ea] dark:bg-gray-950 transition-colors duration-300">
       {/* Header */}
       <div className="sticky top-0 bg-[#f4f2ea]/80 dark:bg-gray-950/80 backdrop-blur-md z-10 px-4 py-4 flex items-center justify-between border-b border-gray-100 dark:border-gray-800 transition-colors duration-300">
         <button onClick={() => navigate(-1)} className="p-2 -ml-2 text-gray-900 dark:text-gray-100 rounded-full hover:bg-gray-100/50 dark:hover:bg-gray-800/50">
@@ -59,7 +59,7 @@ export default function EventDetail() {
         </button>
       </div>
 
-      <div className="p-5">
+      <div className="p-5 pt-8 pb-8">
         <div className="inline-block px-2.5 py-1 bg-white dark:bg-gray-900 text-emerald-700 dark:text-emerald-400 text-xs font-bold rounded-md mb-4 uppercase tracking-wider border border-gray-100 dark:border-gray-800 transition-colors">
           {event.topic}
         </div>
@@ -117,7 +117,7 @@ export default function EventDetail() {
       </div>
 
       {/* Sticky Bottom Action */}
-      <div className="mt-auto px-5 py-4 border-t border-gray-100 dark:border-gray-800 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md sticky bottom-0 z-10 pb-safe-offset-4 transition-colors duration-300">
+      <div className="sticky bottom-0 left-0 right-0 px-5 py-4 border-t border-gray-100 dark:border-gray-800 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md z-40 transition-colors duration-300 mt-auto">
         <button 
           onClick={() => toggleRsvp(event.id)}
           className={cn(

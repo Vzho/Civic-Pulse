@@ -21,7 +21,7 @@ export default function Login() {
     <div className="flex-1 bg-[#F9F9F9] dark:bg-gray-950 flex flex-col items-center p-6 font-sans relative overflow-y-auto transition-colors duration-300">
       <div className="w-full mt-8">
         <h1 className="text-xl font-bold tracking-tight text-gray-900 dark:text-gray-100 mb-8 flex items-center gap-1">
-          Civic<span className="text-emerald-500 dark:text-emerald-400">Pulse</span>
+          Rally<span className="text-[#1D9E75]">Point</span>
         </h1>
         
         <div className="flex gap-2 mb-8">

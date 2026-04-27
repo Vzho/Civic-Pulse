@@ -70,10 +70,10 @@ const mockOrgs: Organization[] = [
     id: 'org2',
     name: 'Berkeley City Council',
     mission: 'To serve the Berkeley community through responsive governance, inclusive policymaking, and equitable public services that improve quality of life for all residents.',
-    category: 'Housing',
+    category: 'Government',
     credibilityScore: 100,
     verified: true,
-    contact: { email: 'council@berkeleyca.gov', website: 'https://berkeleyca.gov/city-council', address: '2180 Milvia Street, Berkeley, CA' },
+    contact: { email: 'council@berkeleyca.gov', website: 'https://berkeleyca.gov/', address: '2180 Milvia Street, Berkeley, CA' },
     stats: { eventsHosted: 124, volunteersEngaged: 1250 }
   },
   {
@@ -85,16 +85,6 @@ const mockOrgs: Organization[] = [
     verified: true,
     contact: { email: 'hello@streetsidepantry.org', website: 'https://streetsidepantry.org', address: 'Mobile / West Oakland' },
     stats: { eventsHosted: 45, volunteersEngaged: 320 }
-  },
-  {
-    id: 'org4',
-    name: 'East Bay Climate Action Coalition',
-    mission: 'Organizing for bold local climate solutions and environmental justice across the East Bay.',
-    category: 'Environment',
-    credibilityScore: 91,
-    verified: true,
-    contact: { email: 'action@ebcac.org', website: 'https://ebcac.org', address: 'Oakland Hub' },
-    stats: { eventsHosted: 62, volunteersEngaged: 850 }
   },
   {
     id: 'org5',
@@ -152,6 +142,18 @@ const mockEvents: CivicEvent[] = [
     attendees: 132,
   },
   {
+    id: '5',
+    title: 'Public Hearting of Housing Funding Plans',
+    dateStr: 'Tue April 28, 2026 · 6:00 PM',
+    location: 'School District Board Room - 1231 Addison Street, Berkeley, CA 94702',
+    topic: 'Housing',
+    type: 'Event',
+    organization: 'City of Berkeley',
+    orgId: 'org2',
+    description: 'Join the Berkeley City Council for a public hearing to review and discuss the city\'s housing funding plans. The hearing will cover proposed allocations for affordable housing, emergency solutions, and the Housing Trust Fund, including how funds will be prioritized, distributed, and measured for impact. Community members are encouraged to attend, listen, and provide public comment to help shape the city\'s investment in housing stability and equity.',
+    attendees: 210,
+  },
+  {
     id: '1',
     title: 'Arbor Day + Spring Planting Events',
     dateStr: 'Saturday, April 18, 2026 · 9:00 AM - 11:00 AM',
@@ -164,28 +166,16 @@ const mockEvents: CivicEvent[] = [
     attendees: 47,
   },
   {
-    id: '4',
-    title: 'East Bay Climate Action Coalition — Monthly Meetup',
-    dateStr: 'Tue Apr 22 · 6:00 PM',
-    location: 'Online + Oakland Hub',
-    topic: 'Climate',
+    id: '8',
+    title: 'Public Hearing of Housing Funding Plans',
+    dateStr: 'Tue April 28, 2026 · 6:00 PM',
+    location: 'Berkeley City School District Board Room - 1231 Addison Street, Berkeley, CA 94702',
+    topic: 'Housing',
     type: 'Event',
-    organization: 'EBLC',
-    orgId: 'org4',
-    description: 'Monthly gathering to plan our upcoming climate resilience initiatives.',
-    attendees: 89,
-  },
-  {
-    id: '5',
-    title: 'Public Comment: MTC Regional Housing Mandate',
-    dateStr: 'Wed Apr 23 · 10:00 AM',
-    location: 'Oakland City Hall',
-    topic: 'City council',
-    type: 'Event',
-    organization: 'Metropolitan Transportation Commission',
-    orgId: 'org5',
-    description: 'Open to public comment regarding the newly proposed housing mandate.',
-    attendees: 0,
+    organization: 'The Berkeley City Council',
+    orgId: 'org8',
+    description: 'Public hearing and presentation on the newly proposed mixed-use zoning laws to increase housing density.',
+    attendees: 210,
   },
   {
     id: '7',
@@ -198,18 +188,6 @@ const mockEvents: CivicEvent[] = [
     orgId: 'org7',
     description: 'An update on the ongoing negotiations with the school district regarding class sizes and fair pay.',
     attendees: 320,
-  },
-  {
-    id: '8',
-    title: 'Affordable Housing Zoning Proposal',
-    dateStr: 'Thu May 15 · 7:30 PM',
-    location: 'Fremont City Hall',
-    topic: 'Housing',
-    type: 'Event',
-    organization: 'City of Fremont',
-    orgId: 'org8',
-    description: 'Public hearing and presentation on the newly proposed mixed-use zoning laws to increase housing density.',
-    attendees: 210,
   },
 ];
 
@@ -270,7 +248,7 @@ export const useStore = create<AppState>()(
       toggleTheme: () => set((state) => ({ theme: state.theme === 'light' ? 'dark' : 'light' })),
     }),
     {
-      name: 'civicpulse-storage',
+      name: 'rallypoint-storage-v7',
       merge: (persistedState: any, currentState) => {
         const state = { ...currentState, ...persistedState };
         

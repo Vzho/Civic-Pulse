@@ -10,7 +10,7 @@ export default function BottomNav() {
   ];
 
   return (
-    <div className="absolute bottom-0 left-0 right-0 z-40 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 safe-area-pb flex transition-colors duration-300">
+    <div className="shrink-0 w-full z-40 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 safe-area-pb flex transition-colors duration-300">
       {navItems.map((item) => (
           <NavLink
             key={item.to}

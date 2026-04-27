@@ -24,17 +24,17 @@ export default function OrganizationProfile() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f4f2ea] dark:bg-gray-950 flex flex-col pb-20 transition-colors duration-300">
+    <div className="min-h-full bg-[#f4f2ea] dark:bg-gray-950 flex flex-col pb-8 transition-colors duration-300">
       {/* Header */}
-      <div className="bg-[#189F6B] dark:bg-emerald-900 text-white pt-10 pb-20 px-6 relative transition-colors duration-300">
+      <div className="bg-[#189F6B] dark:bg-emerald-900 text-white pt-16 pb-20 px-6 relative transition-colors duration-300">
         <button 
           onClick={() => navigate(-1)} 
-          className="absolute top-10 left-4 w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm transition-transform active:scale-90"
+          className="absolute top-8 left-4 w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm transition-transform active:scale-90"
         >
           <ChevronLeft className="w-6 h-6" />
         </button>
         
-        <div className="mt-8">
+        <div className="mt-20">
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xs font-bold uppercase tracking-widest bg-emerald-500/50 px-2 py-0.5 rounded border border-emerald-400">
               {org.category}

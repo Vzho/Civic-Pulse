@@ -21,25 +21,32 @@ function CountdownTimer({ area }: { area: string }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
-    // Generate a deterministic target date based on area
-    const now = new Date().getTime();
-    let daysToAdd = 3;
-    if (area === "Oakland") daysToAdd = 5;
-    else if (area === "Fremont") daysToAdd = 2;
-    else if (area === "All areas") daysToAdd = 14;
+    let cycleDays = 12;
+    if (area === "Oakland") cycleDays = 14;
+    else if (area === "Fremont") cycleDays = 10;
+    else if (area === "All areas") cycleDays = 30;
 
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + daysToAdd);
-    targetDate.setHours(0, 0, 0, 0);
-    const target = targetDate.getTime();
+    const calculateTarget = () => {
+      const targetDate = new Date();
+      const epoch = new Date("2024-01-01T00:00:00").getTime();
+      const msPerDay = 24 * 60 * 60 * 1000;
+      const daysSinceEpoch = Math.floor((targetDate.getTime() - epoch) / msPerDay);
+      const daysLeft = cycleDays - (daysSinceEpoch % cycleDays);
 
-    const interval = setInterval(() => {
+      targetDate.setDate(targetDate.getDate() + daysLeft);
+      targetDate.setHours(0, 0, 0, 0);
+      return targetDate.getTime();
+    };
+
+    let target = calculateTarget();
+
+    const updateTimer = () => {
       const current = new Date().getTime();
-      const distance = target - current;
+      let distance = target - current;
 
       if (distance < 0) {
-        clearInterval(interval);
-        return;
+        target = calculateTarget();
+        distance = target - current;
       }
 
       setTimeLeft({
@@ -48,7 +55,10 @@ function CountdownTimer({ area }: { area: string }) {
         minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
         seconds: Math.floor((distance % (1000 * 60)) / 1000),
       });
-    }, 1000);
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
 
     return () => clearInterval(interval);
   }, [area]);
@@ -231,7 +241,7 @@ export default function Leaderboard() {
         </div>
 
         {/* List */}
-        <div className="bg-[#f4f2ea] dark:bg-gray-950 px-4 pt-4 pb-32 transition-colors duration-300">
+        <div className="bg-[#f4f2ea] dark:bg-gray-950 px-4 pt-4 pb-16 transition-colors duration-300">
           <div className="flex justify-between text-[10px] font-bold text-gray-400 uppercase tracking-widest px-2 mb-2">
             <span>Rank</span>
             <span>Points</span>

@@ -30,7 +30,7 @@ export default function Profile() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#f4f2ea] dark:bg-gray-950 overflow-x-hidden pb-16 transition-colors duration-300">
+    <div className="flex flex-col min-h-full pb-8 bg-[#f4f2ea] dark:bg-gray-950 overflow-x-hidden transition-colors duration-300">
       
       {/* Header Profile Info */}
       <div className="bg-[#189F6B] dark:bg-emerald-900 text-white pt-10 pb-4 px-6 rounded-b-[2rem] relative transition-colors duration-300">
@@ -181,30 +181,6 @@ export default function Profile() {
               onMouseMove={challengeScrollProps.onMouseMove}
               onClickCapture={challengeScrollProps.onClickCapture}
             >
-              {/* Challenge 1 */}
-              <div className="min-w-[280px] bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-md overflow-hidden shrink-0 transition-colors duration-300">
-                <div className="h-24 bg-emerald-600 dark:bg-emerald-800 p-4 relative flex items-center justify-center">
-                  <div className="absolute top-3 left-3 bg-black/40 backdrop-blur-md px-2 py-0.5 rounded-full flex items-center gap-1.5">
-                    <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></div>
-                    <span className="text-[10px] text-white font-bold uppercase tracking-wider">9 days left</span>
-                  </div>
-                  <div className="text-4xl">🌱</div>
-                  <div className="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-xl">🥇</div>
-                </div>
-                <div className="p-4">
-                  <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1 italic transition-all">East Bay Climate Coalition</div>
-                  <h4 className="font-serif font-bold text-lg text-gray-900 dark:text-gray-100">Spring Climate Sprint</h4>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Ends May 3 · +200 pts + badge</div>
-                  <div className="mt-4 h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
-                    <div className="h-full bg-emerald-500 w-1/3"></div>
-                  </div>
-                  <div className="flex justify-between items-center mt-2">
-                    <span className="text-[10px] text-gray-400 dark:text-gray-500 font-medium">1 / 3 events done</span>
-                    <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">🏅 Sprout Badge</span>
-                  </div>
-                </div>
-              </div>
-
               {/* Challenge 2 */}
               <div className="min-w-[280px] bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-md overflow-hidden shrink-0 transition-colors duration-300">
                 <div className="h-24 bg-[#1e4e8c] dark:bg-blue-900 p-4 relative flex items-center justify-center">
@@ -406,10 +382,18 @@ export default function Profile() {
               <div className="w-2 shrink-0 h-full" aria-hidden="true" />
             </div>
 
-            <div className="mt-12 mb-8">
+            <div className="mt-12 mb-8 space-y-4">
+              <div className="text-center md:text-left">
+                <h3 className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-1.5">Are you an organization?</h3>
+                <p className="text-sm text-gray-400 dark:text-gray-500 mb-3">Click this to register your event on the app</p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfrMinORxC32CVAa40uBrSvfFOLGeoRACyuzH3MoVloLZsesA/viewform" target="_blank" rel="noopener noreferrer" className="w-full py-3.5 bg-[#e3eefa] text-[#1b4ed8] dark:bg-blue-900/30 dark:text-blue-400 border border-[#cbe0f8] dark:border-blue-800/30 rounded-xl font-semibold flex items-center justify-center hover:bg-[#d6e8f8] transition-colors">
+                  Add an Event
+                </a>
+              </div>
+
               <button 
                 onClick={logout}
-                className="w-full py-3 border border-red-100 dark:border-red-900/30 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors"
+                className="w-full py-3.5 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 text-red-500 dark:text-red-400 rounded-xl font-semibold flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors shadow-sm"
               >
                 Logout
               </button>
@@ -454,7 +438,7 @@ export default function Profile() {
                   <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden transition-colors"><div className="h-full bg-orange-400 rounded-full" style={{width: '25%'}}></div></div>
                </div>
                <div>
-                  <div className="flex justify-between text-sm mb-1.5"><span className="text-gray-700 dark:text-gray-300">Housing</span><span className="text-gray-500 dark:text-gray-400">4 events</span></div>
+                  <div className="flex justify-between text-sm mb-1.5"><span className="text-gray-700 dark:text-gray-300">Government</span><span className="text-gray-500 dark:text-gray-400">4 events</span></div>
                   <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden transition-colors"><div className="h-full bg-pink-500 rounded-full" style={{width: '15%'}}></div></div>
                </div>
              </div>
