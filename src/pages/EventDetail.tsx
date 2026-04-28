@@ -9,7 +9,7 @@ import ParticipantsSheet from "../components/ui/ParticipantsSheet";
 export default function EventDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { events, user, toggleRsvp } = useStore();
+  const { events, user, toggleRsvp, organizations } = useStore();
   const [isAssistantOpen, setAssistantOpen] = useState(false);
   const [isParticipantsOpen, setParticipantsOpen] = useState(false);
 
@@ -18,6 +18,9 @@ export default function EventDetail() {
   if (!event) {
     return <div className="p-6">Event not found</div>;
   }
+
+  const org = organizations.find(o => o.id === event.orgId);
+  const displayOrgName = org ? org.name : event.organization;
 
   const isRsvpd = user.rsvps.includes(event.id);
 
@@ -73,11 +76,11 @@ export default function EventDetail() {
           className="w-full flex items-center gap-3 text-left text-gray-600 dark:text-gray-400 mb-6 border-b border-gray-200/50 dark:border-gray-800 pb-6 cursor-pointer group transition-all"
         >
           <div className="w-10 h-10 rounded-full bg-emerald-600 dark:bg-emerald-700 text-white flex flex-col items-center justify-center font-bold text-xs leading-none group-active:scale-95 transition-transform">
-            {event.organization.substring(0, 1).toUpperCase()}
+            {displayOrgName.substring(0, 1).toUpperCase()}
           </div>
           <div className="flex-1">
             <div className="text-sm font-medium text-gray-900 dark:text-gray-100 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 underline decoration-emerald-200 dark:decoration-emerald-900 transition-all font-serif italic decoration-2 underline-offset-4">
-              Hosted by {event.organization}
+              Hosted by {displayOrgName}
             </div>
             <div 
               onClick={(e) => { e.stopPropagation(); setParticipantsOpen(true); }}

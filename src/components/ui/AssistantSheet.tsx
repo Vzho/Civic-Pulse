@@ -147,7 +147,7 @@ export default function AssistantSheet({ isOpen, onClose, contextMessage }: Assi
             type: 'events',
             eventsList: [
               { id: '2', title: 'Earth Day Cleanup', category: 'CLIMATE · BERKELEY', date: 'Sat, Apr 18 · 9:00 AM', location: '160 University Ave, Berkeley, CA 94710', attending: 132, host: 'Hosted by Berkeley City Council', points: 80, color: 'emerald' },
-              { id: '1', title: 'Arbor Day + Spring Planting Events', category: 'CLIMATE · BERKELEY', date: 'Sat, Apr 18 · 9:00 AM – 11:00 AM', location: '160 University Ave, Berkeley, CA 94710', attending: 47, host: 'Hosted by Berkeley City Council', points: 80, color: 'blue' },
+              { id: '1', title: 'Arbor Day + Spring Planting Events', category: 'CLIMATE · BERKELEY', date: 'Sat, Apr 18 · 9:00 AM – 11:00 AM', location: '160 University Ave, Berkeley, CA 94710', attending: 47, host: 'Hosted by Berkeley City Council', points: 80, color: 'emerald' },
             ]
           }
         }]);

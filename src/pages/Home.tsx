@@ -113,7 +113,11 @@ export default function Home() {
     }
   };
 
-  const getCardBg = (index: number, light?: boolean) => {
+  const getCardBg = (index: number, light?: boolean, topic?: string) => {
+    if (topic?.toLowerCase() === 'climate') {
+      return light ? "bg-[#EAF7F2]" : "bg-[#E6F5EF]";
+    }
+
     const bgs = light
       ? [
           "bg-[#EAF7F2]",
@@ -148,7 +152,13 @@ export default function Home() {
       "bg-orange-500",
       "bg-indigo-500",
     ];
-    const colorClass = colors[index % colors.length];
+    
+    let colorClass = colors[index % colors.length];
+    
+    // Explicit colors for specific topics
+    if (topic.toLowerCase() === 'climate') {
+      colorClass = "bg-emerald-600";
+    }
 
     return (
       <div className={cn("w-1.5 self-stretch rounded-l-xl", colorClass)}></div>
@@ -279,7 +289,7 @@ export default function Home() {
                   key={evt.id}
                   className={cn(
                     "w-[280px] shrink-0 rounded-2xl flex flex-col border border-gray-100 dark:border-gray-800 overflow-hidden cursor-pointer active:scale-[0.98] transition-all duration-300",
-                    getCardBg(idx),
+                    getCardBg(idx, false, evt.topic),
                     "dark:bg-gray-900",
                   )}
                   onClick={() => navigate(`/event/${evt.id}`)}
@@ -364,7 +374,7 @@ export default function Home() {
                   onClick={() => navigate(`/event/${evt.id}`)}
                   className={cn(
                     "rounded-xl flex border border-gray-200 dark:border-gray-800 cursor-pointer hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-300 active:scale-[0.98] overflow-hidden",
-                    getCardBg(idx + 10, true), // Offset to differ from featured
+                    getCardBg(idx + 10, true, evt.topic), // Offset to differ from featured
                     "dark:bg-gray-900",
                   )}
                   style={{ boxShadow: "0 1px 4px rgba(0,0,0,0.02)" }}

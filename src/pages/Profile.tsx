@@ -145,7 +145,7 @@ export default function Profile() {
                 <span className="text-emerald-700 dark:text-emerald-400 font-bold text-[15px]">+50 pts</span>
               </div>
               <div className="bg-white dark:bg-gray-900 p-4 rounded-xl border border-gray-100 dark:border-gray-800 flex items-center shadow-sm transition-colors duration-300">
-                <div className="w-10 h-10 rounded-full bg-orange-50 dark:bg-orange-900/30 text-orange-500 flex items-center justify-center mr-3 shrink-0">📝</div>
+                <div className="w-10 h-10 rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-emerald-500 flex items-center justify-center mr-3 shrink-0">📝</div>
                 <div className="flex-1">
                   <div className="font-medium text-[15px] text-gray-900 dark:text-gray-100 italic transition-all">Comment on 2 local bills</div>
                   <div className="text-[13px] text-gray-500 dark:text-gray-400 mt-0.5 font-light">1 / 2 completed</div>

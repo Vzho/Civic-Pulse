@@ -143,7 +143,7 @@ const mockEvents: CivicEvent[] = [
   },
   {
     id: '5',
-    title: 'Public Hearting of Housing Funding Plans',
+    title: 'Public Hearing of Housing Funding Plans',
     dateStr: 'Tue April 28, 2026 · 6:00 PM',
     location: 'School District Board Room - 1231 Addison Street, Berkeley, CA 94702',
     topic: 'Housing',
@@ -166,16 +166,16 @@ const mockEvents: CivicEvent[] = [
     attendees: 47,
   },
   {
-    id: '8',
-    title: 'Public Hearing of Housing Funding Plans',
-    dateStr: 'Tue April 28, 2026 · 6:00 PM',
-    location: 'Berkeley City School District Board Room - 1231 Addison Street, Berkeley, CA 94702',
-    topic: 'Housing',
+    id: 'mtc-housing',
+    title: 'Public Comment: MTC Regional Housing Mandate',
+    dateStr: 'Wed Apr 23, 2026 · 10:00 AM',
+    location: 'Oakland City Hall',
+    topic: 'City council',
     type: 'Event',
-    organization: 'The Berkeley City Council',
-    orgId: 'org8',
-    description: 'Public hearing and presentation on the newly proposed mixed-use zoning laws to increase housing density.',
-    attendees: 210,
+    organization: 'Metropolitan Transportation Commission',
+    orgId: 'org-mtc',
+    description: 'Provide public comment on the MTC Regional Housing Mandate. This meeting will discuss housing allocation strategies for the region.',
+    attendees: 0,
   },
   {
     id: '7',
@@ -248,7 +248,7 @@ export const useStore = create<AppState>()(
       toggleTheme: () => set((state) => ({ theme: state.theme === 'light' ? 'dark' : 'light' })),
     }),
     {
-      name: 'rallypoint-storage-v7',
+      name: 'rallypoint-storage-v9',
       merge: (persistedState: any, currentState) => {
         const state = { ...currentState, ...persistedState };
         
